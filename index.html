@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Hub - Fery</title>
+    <title>Koleksi Game - Personal Hub</title>
     
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -97,7 +97,29 @@
         .solid-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            border-color: var(--accent);
+            border-color: var(--accent) !important; /* Force accent color on hover */
+        }
+
+        /* Penyesuaian agar teks dan gambar tetap rapi saat 3 kolom di layar HP */
+        @media (max-width: 640px) {
+            .game-card .p-4 {
+                padding: 0.5rem !important;
+                gap: 0.5rem !important;
+            }
+            .game-card .h-40 {
+                height: 6rem !important; 
+            }
+            .game-card h3 {
+                font-size: 0.75rem !important; 
+                line-height: 1.1 !important;
+                margin-bottom: 2px !important;
+            }
+            .game-card p, .game-card span {
+                font-size: 0.6rem !important;
+            }
+            .game-card .text-\\[10px\\] {
+                font-size: 0.55rem !important;
+            }
         }
     </style>
 </head>
@@ -105,262 +127,214 @@
 
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
-        <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/10 dark:bg-indigo-600/15 blur-[120px] transition-colors duration-500"></div>
         <!-- Grid Tekstur Halus -->
         <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
     </div>
 
     <div class="w-full h-full flex gap-3 md:gap-4 fade-in-up">
         
-        <!-- Sidebar Kiri (Desktop & Mobile Dropdown) -->
         <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
-            <!-- Logo & Home -->
             <div class="flex flex-col items-center gap-6">
                 <!-- Tombol tutup (Hanya terlihat di mobile) -->
                 <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
                     <i class="fas fa-times text-xl"></i>
                 </button>
 
-                <a href="#" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
+                <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
                     <i class="fas fa-layer-group text-xl"></i>
                 </a>
                 
                 <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
                 
-                <!-- Menu Navigasi -->
-                <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center shadow-sm transition-all" style="background-color: var(--bg-surface); color: var(--text-main);" title="Dashboard Utama">
+                <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Dashboard Utama">
                     <i class="fas fa-compass text-lg"></i>
                 </a>
-                <!-- Portofolio -->
                 <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Portofolio & CV">
                     <i class="fas fa-id-card text-lg"></i>
                 </a>
             </div>
 
-            <!-- Sosial Media Bawah -->
             <div class="flex flex-col items-center gap-4">
-                <a href="https://www.facebook.com/ferryboy11" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#1877F2]" style="color: var(--text-muted);" title="Facebook">
+                <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#1877F2]" style="color: var(--text-muted);" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-                <a href="https://www.instagram.com/feryusf_?igsh=bTM1c2p4ZTJlcmVp" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#E1306C]" style="color: var(--text-muted);" title="Instagram">
+                <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#E1306C]" style="color: var(--text-muted);" title="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="https://github.com/ferryusf11" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#333]" style="color: var(--text-muted);" title="GitHub">
+                <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#333]" style="color: var(--text-muted);" title="GitHub">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
         </aside>
 
-        <!-- Main Content Wrapper -->
         <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             
             <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
                 
                 <div class="flex items-center gap-4">
-                    <!-- Tombol ini memanggil toggleMobileMenu() yang sekarang sudah didefinisikan di JS -->
                     <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);" title="Menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <!-- Pills Kategori -->
                     <div class="hidden lg:flex items-center gap-2">
-                        <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Dashboard</a>
+                        <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Dashboard</a>
                         <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a>
                     </div>
                 </div>
 
-                <!-- Kanan: Search, Theme Toggle, & Profile -->
                 <div class="flex items-center gap-3">
-                    <!-- Search Box -->
                     <div class="hidden md:flex rounded-lg px-4 py-2 items-center gap-2 w-56 transition-all" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <i class="fas fa-search text-xs" style="color: var(--text-muted);"></i>
-                        <input type="text" placeholder="Cari modul..." class="bg-transparent border-none outline-none text-sm w-full" style="color: var(--text-main);">
+                        <input type="text" id="gameSearch" placeholder="Cari game..." oninput="filterGames()" class="bg-transparent border-none outline-none text-sm w-full" style="color: var(--text-main);">
                     </div>
 
-                    <!-- Tombol Ganti Tema (Light / Dark) -->
                     <button onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);" title="Ganti Tema">
                         <i class="fas fa-moon dark:hidden text-sm"></i>
                         <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
                     </button>
 
-                    <!-- Tombol Share -->
-                    <button onclick="shareProfile()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);" title="Bagikan">
-                        <i class="fas fa-share-nodes text-sm"></i>
-                    </button>
-
-                    <!-- Profil Tag -->
                     <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <img src="https://placehold.co/100x100/3b82f6/fff?text=Kamu" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
                         <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
-                        <i class="fas fa-chevron-down text-xs ml-1 hidden sm:block" style="color: var(--text-muted);"></i>
                     </div>
                 </div>
             </nav>
 
             <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8" style="background-color: var(--bg-main);">
                 
-                <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 max-w-[1400px] mx-auto">
+                <div class="max-w-[1400px] mx-auto flex flex-col gap-6">
                     
-                    <!-- Kiri: Banner & Proyek Utama -->
-                    <div class="flex-1 flex flex-col gap-8 w-full min-w-0">
-                        
-                        <!-- HERO BANNER -->
-                        <div class="relative w-full h-[280px] md:h-[340px] rounded-lg overflow-hidden group fade-in-up delay-1 solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop')] bg-cover bg-center transition-transform duration-700 group-hover:scale-105 opacity-50"></div>
-                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-[var(--bg-main)]/60 to-transparent"></div>
-                            
-                            <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                                <div class="max-w-xl">
-                                    <div class="flex items-center gap-2 mb-3">
-                                        <span class="text-white px-2.5 py-1 rounded text-xs font-bold uppercase tracking-wider" style="background-color: var(--accent);">
-                                            Main Project
-                                        </span>
-                                        <span class="text-xs font-medium" style="color: var(--text-muted);"><i class="fas fa-star text-yellow-500 mr-1 text-xs"></i> Unggulan</span>
-                                    </div>
-                                    <h1 class="text-3xl md:text-5xl font-extrabold mb-3 tracking-tight" style="color: var(--text-main);">Web Portofolio<br>Profesional</h1>
-                                    <p class="text-sm md:text-base line-clamp-2" style="color: var(--text-muted);">Kumpulan karya desain, proyek pengembangan web, dan dokumentasi perjalanan karir profesional saya.</p>
-                                </div>
-                                
-                                <div class="flex items-center gap-3 shrink-0">
-                                    <a href="#" class="px-6 py-3 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-md" style="background-color: var(--text-main); color: var(--bg-main);">
-                                        <i class="fas fa-play text-sm"></i> Buka Web
-                                    </a>
-                                    <a href="#" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);" title="Detail">
-                                        <i class="fas fa-info text-sm"></i>
-                                    </a>
-                                </div>
-                            </div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">Koleksi Game Aktif</h1>
+                            <p class="text-sm mt-1" style="color: var(--text-muted);">Daftar game yang sedang dan sering dimainkan di perangkat Mobile & PC.</p>
                         </div>
 
-                        <!-- Grid Modul / Proyek Lainnya -->
-                        <div class="fade-in-up delay-2">
-                            <div class="flex items-center justify-between mb-5">
-                                <h2 class="text-xl font-bold" style="color: var(--text-main);">Semua Modul & Proyek</h2>
-                                <button class="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);">Lihat Semua</button>
-                            </div>
-                            
-                            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
-                                
-                                <!-- Proyek 1: Pop-Culture Vault -->
-                                <a href="https://ferryusf11.github.io/popVault" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                    <div class="w-full h-[60%] relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80 group-hover:scale-110 transition-transform duration-500"></div>
-                                        <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-blue-400 uppercase border border-white/10">App</div>
-                                    </div>
-                                    <div class="p-4 flex-1 flex flex-col justify-end">
-                                        <h3 class="font-bold text-base mb-1 group-hover:text-blue-500 transition-colors leading-tight" style="color: var(--text-main);">Pop-Culture Vault</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Database tracker untuk komik, film, dan anime.</p>
-                                    </div>
-                                </a>
-
-                                <!-- Proyek 2 -->
-                                <a href="#" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                    <div class="w-full h-[60%] relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1561557944-6e7860d1a7eb?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80 group-hover:scale-110 transition-transform duration-500"></div>
-                                        <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-pink-400 uppercase border border-white/10">Gallery</div>
-                                    </div>
-                                    <div class="p-4 flex-1 flex flex-col justify-end">
-                                        <h3 class="font-bold text-base mb-1 group-hover:text-pink-500 transition-colors leading-tight" style="color: var(--text-main);">Poster Artwork</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Galeri desain grafis & tipografi.</p>
-                                    </div>
-                                </a>
-
-                                <!-- Proyek 3 -->
-                                <a href="#" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                    <div class="w-full h-[60%] relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80 group-hover:scale-110 transition-transform duration-500"></div>
-                                        <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-green-400 uppercase border border-white/10">Dev</div>
-                                    </div>
-                                    <div class="p-4 flex-1 flex flex-col justify-end">
-                                        <h3 class="font-bold text-base mb-1 group-hover:text-green-500 transition-colors leading-tight" style="color: var(--text-main);">Badminton Squad</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Info Mabar bang.</p>
-                                    </div>
-                                </a>
-
-                                <!-- Proyek 4: Koleksi Game -->
-                                <a href="games.html" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                    <div class="w-full h-[60%] relative overflow-hidden">
-                                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80 group-hover:scale-110 transition-transform duration-500"></div>
-                                        <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-yellow-400 uppercase border border-white/10">Hobby</div>
-                                    </div>
-                                    <div class="p-4 flex-1 flex flex-col justify-end">
-                                        <h3 class="font-bold text-base mb-1 group-hover:text-yellow-500 transition-colors leading-tight" style="color: var(--text-main);">Koleksi Game</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Daftar game yang dimainkan di perangkat Mobile & PC.</p>
-                                    </div>
-                                </a>
-
-                                <!-- Kartu Tambah Baru -->
-                                <div class="relative aspect-[4/5] rounded-lg border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-colors" style="border-color: var(--border-color);">
-                                    <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style="background-color: var(--bg-surface);">
-                                        <i class="fas fa-plus" style="color: var(--text-muted);"></i>
-                                    </div>
-                                    <h3 class="font-bold text-sm" style="color: var(--text-muted);">Proyek Baru</h3>
-                                    <p class="text-[10px] mt-1" style="color: var(--text-muted);">Segera hadir...</p>
-                                </div>
-
-                            </div>
+                        <div class="flex items-center gap-2 p-1 rounded-lg" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                            <button onclick="setFilter('all')" id="btn-all" class="px-4 py-1.5 rounded-md text-xs font-bold transition-all shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Semua</button>
+                            <button onclick="setFilter('mobile')" id="btn-mobile" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all" style="color: var(--text-muted);">📱 Mobile</button>
+                            <button onclick="setFilter('pc')" id="btn-pc" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all" style="color: var(--text-muted);">💻 PC</button>
                         </div>
                     </div>
 
-                    <div class="w-full lg:w-[300px] shrink-0 fade-in-up delay-3 flex flex-col gap-6">
+                    <!-- Grid: 3 Kolom di Mobile, 4 Tablet, 5 PC -->
+                    <div id="gameGrid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-5">
                         
-                        <!-- Card Aktivitas Terkini -->
-                        <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg" style="background-color: var(--accent); color: white;">
-                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-white/80">Aktivitas Terkini</h2>
-                            
-                            <div class="flex flex-col gap-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-white/10">
-                                        <img src="https://placehold.co/150x150/222/fff?text=Manhwa" alt="Manhwa" class="w-full h-full object-cover">
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-[10px] font-bold mb-0.5 text-blue-200">SEDANG MEMBACA</p>
-                                        <h4 class="text-sm font-bold truncate text-white">Nano Machine</h4>
-                                        <p class="text-xs text-white/70">Chapter 220</p>
-                                    </div>
+                        <!-- Game 1 -->
+                        <!-- Di sini kita ganti inline style (bg & border) menjadi class Tailwind bg-blue-50 dan dark:bg-blue-900/30 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="mobile legends bang bang">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" alt="Mobile Legends" class="w-full h-full object-cover opacity-80">
+                                <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Mobile Legends</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">Rank: Mythic Glory • Role: Mage/Assassin</p>
                                 </div>
-                                
-                                <div class="w-full h-px bg-white/20"></div>
-
-                                <div class="flex items-center gap-3">
-                                    <div class="w-14 h-14 rounded-lg border flex items-center justify-center shrink-0 bg-white/10 border-white/20">
-                                        <i class="fab fa-neos text-2xl text-yellow-400"></i>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <p class="text-[10px] font-bold text-yellow-400 mb-0.5">FOKUS BELAJAR</p>
-                                        <h4 class="text-sm font-bold truncate text-white">Cara Sukses tanpa Modal Mod APK no root</h4>
-                                        <p class="text-xs text-white/70">Mod APK no root</p>
-                                    </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 840 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Card Tech & Tools -->
-                        <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg bg-yellow-500">
-                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-yellow-950">Tech & Tools</h2>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">HTML5</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Tailwind CSS</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Canva</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Gemini AI</span>
+                        <!-- Game 2 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="valorant">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Valorant</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">Rank: Diamond 2 • Agent: Jett/Omen</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 1,200 Jam</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Sosmed Khusus HP -->
-                        <div class="md:hidden rounded-lg p-4 flex items-center justify-around transition-colors duration-300" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                            <a href="#" class="transition-colors hover:text-[#1877F2]" style="color: var(--text-muted);"><i class="fab fa-facebook-f text-xl"></i></a>
-                            <a href="#" class="transition-colors hover:text-[#E1306C]" style="color: var(--text-muted);"><i class="fab fa-instagram text-xl"></i></a>
-                            <a href="#" class="transition-colors hover:text-white" style="color: var(--text-muted);"><i class="fab fa-github text-xl"></i></a>
+                        <!-- Game 3 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="genshin impact">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Genshin Impact</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">AR 60 • Main: Raiden Shogun</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-yellow-500">Daily Routine</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 950 Jam</span>
+                                </div>
+                            </div>
                         </div>
-                        
+
+                        <!-- Game 4 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="resident evil cyberpunk 2077">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605901309584-818e25960b8f?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Resident Evil 2 Remake</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">Status: 100% Completed / DLC</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-gray-400">Tamat</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 140 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Game 5 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="pubg mobile">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">PUBG Mobile</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">Ace Tier • Squad Leader</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-green-500">Berhenti</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 520 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Game 6 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="gta v grand theft auto">
+                            <div class="w-full h-40 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between gap-3">
+                                <div>
+                                    <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Grand Theft Auto V</h3>
+                                    <p class="text-xs" style="color: var(--text-muted);">CEO Crime</p>
+                                </div>
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
+                                    <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
+                                    <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 730 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </main>
     </div>
 
     <script>
-        // Inisialisasi tema saat halaman dimuat
         (function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
@@ -370,7 +344,6 @@
             }
         })();
 
-        /* Fungsi Mengganti Tema */
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -382,30 +355,8 @@
             }
         }
 
-        /* Fungsi Membagikan Profil (Copy Link) */
-        function shareProfile() {
-            const btn = event.currentTarget;
-            const originalHTML = btn.innerHTML;
-            
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                btn.innerHTML = '<i class="fas fa-check text-green-500"></i>';
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                }, 1500);
-            }).catch(err => {
-                console.error('Gagal menyalin text: ', err);
-            });
-        }
-
-        /* 
-         * Fungsi Menu Mobile 
-         * Fungsi ini sebelumnya hilang yang menyebabkan ReferenceError di Console.
-         */
         function toggleMobileMenu() {
             const sidebar = document.getElementById('sidebar');
-            
-            // Toggle kelas 'hidden' dan 'flex' agar sidebar bisa muncul/hilang di mobile
             if (sidebar.classList.contains('hidden')) {
                 sidebar.classList.remove('hidden');
                 sidebar.classList.add('flex');
@@ -413,6 +364,57 @@
                 sidebar.classList.add('hidden');
                 sidebar.classList.remove('flex');
             }
+        }
+
+        let currentFilter = 'all';
+
+        function setFilter(category) {
+            currentFilter = category;
+            
+            const btnAll = document.getElementById('btn-all');
+            const btnMobile = document.getElementById('btn-mobile');
+            const btnPc = document.getElementById('btn-pc');
+
+            const activeStyleBg = 'var(--text-main)';
+            const activeStyleColor = 'var(--bg-main)';
+            const inactiveStyleColor = 'var(--text-muted)';
+
+            [btnAll, btnMobile, btnPc].forEach(btn => {
+                btn.style.backgroundColor = 'transparent';
+                btn.style.color = inactiveStyleColor;
+                btn.classList.remove('shadow-sm', 'font-bold');
+                btn.classList.add('font-medium');
+            });
+
+            let activeBtn = btnAll;
+            if (category === 'mobile') activeBtn = btnMobile;
+            if (category === 'pc') activeBtn = btnPc;
+
+            activeBtn.style.backgroundColor = activeStyleBg;
+            activeBtn.style.color = activeStyleColor;
+            activeBtn.classList.add('shadow-sm', 'font-bold');
+            activeBtn.classList.remove('font-medium');
+
+            filterGames();
+        }
+
+        function filterGames() {
+            const query = document.getElementById('gameSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.game-card');
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const name = card.getAttribute('data-name');
+
+                const matchesCategory = (currentFilter === 'all' || category === currentFilter);
+                const matchesSearch = name.includes(query);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
     </script>
 </body>
