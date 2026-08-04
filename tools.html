@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alat Akademik & AI - Personal Hub</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Load Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --bg-surface: #f1f5f9;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+        }
+
+        .dark {
+            --bg-main: #050505;
+            --bg-panel: #121212;
+            --bg-surface: #1c1c1c;
+            --border-color: #2a2a2a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .solid-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-0 md:p-3 lg:p-4 w-screen h-screen overflow-hidden">
+
+    <!-- Efek Background Latar -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px]"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/10 dark:bg-indigo-600/15 blur-[120px]"></div>
+        <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
+    </div>
+
+    <!-- Container Utama Full Screen -->
+    <div class="w-full h-full flex gap-3 md:gap-4 fade-in-up">
+        
+        <!-- Sidebar Kiri -->
+        <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            <div class="flex flex-col items-center gap-6">
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
+                    <i class="fas fa-layer-group text-xl"></i>
+                </a>
+                
+                <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
+                
+                <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Dashboard">
+                    <i class="fas fa-compass text-lg"></i>
+                </a>
+                <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Portofolio">
+                    <i class="fas fa-id-card text-lg"></i>
+                </a>
+                <a href="tools.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all shadow-sm" style="background-color: var(--bg-surface); color: var(--text-main);" title="Alat Akademik & AI">
+                    <i class="fas fa-robot text-lg text-blue-500"></i>
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center gap-4">
+                <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#333]" style="color: var(--text-muted);">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            
+            <!-- Navbar Atas -->
+            <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium" style="color: var(--text-muted);">Dashboard</a>
+                        <a href="portfolio.html" class="px-4 py-2 rounded-lg text-sm font-medium" style="color: var(--text-muted);">Portofolio</a>
+                        <span class="px-4 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Alat Akademik & AI</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);">
+                        <i class="fas fa-moon dark:hidden text-sm"></i>
+                        <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
+                    </button>
+                    <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <img src="https://placehold.co/100x100/3b82f6/fff?text=Y" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
+                        <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Konten Utama Alat AI -->
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8" style="background-color: var(--bg-main);">
+                <div class="max-w-4xl mx-auto flex flex-col gap-6">
+                    
+                    <div>
+                        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight flex items-center gap-3">
+                            <i class="fas fa-graduation-cap text-blue-500"></i> Asisten Akademik & AI
+                        </h1>
+                        <p class="text-sm mt-1" style="color: var(--text-muted);">Gunakan kecerdasan buatan untuk parafrase teks, pencarian referensi jurnal berstandar web, outline PPT, terjemahan bernuansa DeepL, hingga generator gambar visual.</p>
+                    </div>
+
+                    <!-- Pilihan Tab Alat (5 Menu) -->
+                    <div class="flex gap-2 p-1.5 rounded-xl overflow-x-auto" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <button onclick="switchTab('paraphrase')" id="tab-paraphrase" class="flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-bold transition-all shadow-sm bg-blue-600 text-white whitespace-nowrap">
+                            <i class="fas fa-feather-alt mr-2"></i> Parafrase
+                        </button>
+                        <button onclick="switchTab('reference')" id="tab-reference" class="flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-medium transition-all text-slate-500 hover:text-slate-800 dark:hover:text-white whitespace-nowrap">
+                            <i class="fas fa-book-bookmark mr-2"></i> Referensi
+                        </button>
+                        <button onclick="switchTab('ppt')" id="tab-ppt" class="flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-medium transition-all text-slate-500 hover:text-slate-800 dark:hover:text-white whitespace-nowrap">
+                            <i class="fas fa-presentation mr-2"></i> Outline PPT
+                        </button>
+                        <button onclick="switchTab('translate')" id="tab-translate" class="flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-medium transition-all text-slate-500 hover:text-slate-800 dark:hover:text-white whitespace-nowrap">
+                            <i class="fas fa-language mr-2"></i> Terjemahan (DeepL Style)
+                        </button>
+                        <button onclick="switchTab('image')" id="tab-image" class="flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-medium transition-all text-slate-500 hover:text-slate-800 dark:hover:text-white whitespace-nowrap">
+                            <i class="fas fa-image mr-2"></i> Generator Gambar
+                        </button>
+                    </div>
+
+                    <!-- Panel 1: Parafrase -->
+                    <div id="panel-paraphrase" class="flex flex-col gap-4 p-5 md:p-6 rounded-2xl solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Masukkan Kalimat atau Paragraf:</label>
+                            <textarea id="inputParaphrase" rows="4" placeholder="Tempel teks atau abstrak yang ingin diparafrase agar lebih ilmiah..." class="w-full rounded-xl p-3 text-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></textarea>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs" style="color: var(--text-muted);">Mengubah gaya bahasa menjadi formal dan akademis.</span>
+                            <button onclick="runParaphrase()" id="btnParaphrase" class="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center gap-2">
+                                <i class="fas fa-wand-magic-sparkles"></i> Proses Parafrase
+                            </button>
+                        </div>
+                        <div id="resultParaphraseContainer" class="hidden mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Hasil Parafrase:</span>
+                                <button onclick="copyResult('resultParaphrase')" class="text-xs font-semibold px-3 py-1 rounded bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition">
+                                    <i class="fas fa-copy mr-1"></i> Salin Teks
+                                </button>
+                            </div>
+                            <div id="resultParaphrase" class="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 2: Pencari Referensi -->
+                    <div id="panel-reference" class="hidden flex-col gap-4 p-5 md:p-6 rounded-2xl solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Topik Riset / Kata Kunci Referensi:</label>
+                            <input type="text" id="inputReference" placeholder="Contoh: Digital Supply Chain Management" class="w-full rounded-xl p-3 text-sm outline-none transition-all focus:ring-2 focus:ring-blue-500" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs" style="color: var(--text-muted);">Mencari literatur ilmiah secara online beserta sumber tautannya.</span>
+                            <button onclick="runReferenceFinder()" id="btnReference" class="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center gap-2">
+                                <i class="fas fa-magnifying-glass"></i> Cari Referensi
+                            </button>
+                        </div>
+                        <div id="resultReferenceContainer" class="hidden mt-4 pt-4 border-t flex flex-col gap-4" style="border-color: var(--border-color);">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Rekomendasi & Literatur:</span>
+                                <button onclick="copyResult('resultReference')" class="text-xs font-semibold px-3 py-1 rounded bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition">
+                                    <i class="fas fa-copy mr-1"></i> Salin Teks
+                                </button>
+                            </div>
+                            <div id="resultReference" class="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></div>
+                            <div id="sourceLinksContainer" class="hidden flex flex-col gap-2">
+                                <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">Sumber Tautan Web Terkait:</span>
+                                <div id="sourceLinksList" class="flex flex-col gap-1.5"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 3: Outline PPT -->
+                    <div id="panel-ppt" class="hidden flex-col gap-4 p-5 md:p-6 rounded-2xl solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Topik / Judul Presentasi Kuliah:</label>
+                            <input type="text" id="inputPptTopic" placeholder="Contoh: Analisis Rantai Pasok Digital" class="w-full rounded-xl p-3 text-sm outline-none transition-all focus:ring-2 focus:ring-blue-500" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs" style="color: var(--text-muted);">Menghasilkan draf slide demi slide secara otomatis beserta poin materi.</span>
+                            <button onclick="runPptGenerator()" id="btnPpt" class="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center gap-2">
+                                <i class="fas fa-file-powerpoint"></i> Buat Outline PPT
+                            </button>
+                        </div>
+                        <div id="resultPptContainer" class="hidden mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Outline Slide Presentasi:</span>
+                                <button onclick="copyResult('resultPpt')" class="text-xs font-semibold px-3 py-1 rounded bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition">
+                                    <i class="fas fa-copy mr-1"></i> Salin Outline
+                                </button>
+                            </div>
+                            <div id="resultPpt" class="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 4: Terjemahan Bahasa (DeepL Style) -->
+                    <div id="panel-translate" class="hidden flex-col gap-4 p-5 md:p-6 rounded-2xl solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Teks yang Ingin Diterjemahkan (Gaya Natural & Profesional):</label>
+                            <textarea id="inputTranslateText" rows="3" placeholder="Masukkan teks dalam bahasa Indonesia, Inggris, atau bahasa lainnya..." class="w-full rounded-xl p-3 text-sm outline-none resize-none transition-all focus:ring-2 focus:ring-blue-500" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Pilih Bahasa Tujuan:</label>
+                            <select id="targetLanguage" class="w-full rounded-xl p-3 text-sm outline-none" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">
+                                <option value="Bahasa Inggris (English - Professional/Academic)">Bahasa Inggris (English)</option>
+                                <option value="Bahasa Arab (Arabic)">Bahasa Arab (Arabic)</option>
+                                <option value="Bahasa Jepang (Japanese)">Bahasa Jepang (Japanese)</option>
+                                <option value="Bahasa Jerman (German)">Bahasa Jerman (German)</option>
+                                <option value="Bahasa Mandarin (Chinese)">Bahasa Mandarin (Chinese)</option>
+                                <option value="Bahasa Prancis (French)">Bahasa Prancis (French)</option>
+                                <option value="Bahasa Korea (Korean)">Bahasa Korea (Korean)</option>
+                                <option value="Bahasa Indonesia (Formal & Natural)">Bahasa Indonesia (Formal / Akademis)</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs" style="color: var(--text-muted);">Menggunakan standar penerjemahan DeepL: akurat, kontekstual, dan natural.</span>
+                            <button onclick="runTranslate()" id="btnTranslate" class="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center gap-2">
+                                <i class="fas fa-language"></i> Terjemahkan (DeepL Style)
+                            </button>
+                        </div>
+                        <div id="resultTranslateContainer" class="hidden mt-4 pt-4 border-t" style="border-color: var(--border-color);">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xs font-bold text-green-500 uppercase tracking-wider">Hasil Terjemahan:</span>
+                                <button onclick="copyResult('resultTranslate')" class="text-xs font-semibold px-3 py-1 rounded bg-blue-500/20 text-blue-500 hover:bg-blue-500/30 transition">
+                                    <i class="fas fa-copy mr-1"></i> Salin Terjemahan
+                                </button>
+                            </div>
+                            <div id="resultTranslate" class="p-4 rounded-xl text-sm leading-relaxed whitespace-pre-line" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Panel 5: Generator Gambar AI -->
+                    <div id="panel-image" class="hidden flex-col gap-4 p-5 md:p-6 rounded-2xl solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider mb-2" style="color: var(--text-muted);">Deskripsi Gambar / Prompt (AI Art Generator):</label>
+                            <input type="text" id="inputImagePrompt" placeholder="Contoh: Ilustrasi 3D modern futuristik kota hijau ramah lingkungan dengan gaya sinematik" class="w-full rounded-xl p-3 text-sm outline-none transition-all focus:ring-2 focus:ring-blue-500" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xs" style="color: var(--text-muted);">Membuat aset visual atau poster presentasi secara instan menggunakan AI.</span>
+                            <button onclick="runImageGenerator()" id="btnImage" class="px-6 py-2.5 rounded-xl font-bold text-sm text-white bg-blue-600 hover:bg-blue-700 shadow-md transition-all flex items-center gap-2">
+                                <i class="fas fa-wand-magic-sparkles"></i> Generate Gambar
+                            </button>
+                        </div>
+                        <div id="resultImageContainer" class="hidden mt-4 pt-4 border-t flex flex-col items-center gap-3" style="border-color: var(--border-color);">
+                            <span class="text-xs font-bold text-green-500 uppercase tracking-wider self-start">Hasil Gambar AI:</span>
+                            <div class="w-full max-w-md rounded-xl overflow-hidden shadow-lg border" style="border-color: var(--border-color); background-color: var(--bg-panel);">
+                                <img id="generatedImageResult" src="" alt="AI Generated" class="w-full h-auto object-cover">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script Integrasi Gemini API -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+            } else {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
+        }
+
+        function switchTab(tab) {
+            const tabs = ['paraphrase', 'reference', 'ppt', 'translate', 'image'];
+            
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const panel = document.getElementById(`panel-${t}`);
+                
+                if (t === tab) {
+                    btn.className = "flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-bold transition-all shadow-sm bg-blue-600 text-white whitespace-nowrap";
+                    panel.classList.remove('hidden');
+                    panel.classList.add('flex');
+                } else {
+                    btn.className = "flex-1 py-2.5 px-4 rounded-lg text-xs md:text-sm font-medium transition-all text-slate-500 hover:text-slate-800 dark:hover:text-white whitespace-nowrap";
+                    panel.classList.add('hidden');
+                    panel.classList.remove('flex');
+                }
+            });
+        }
+
+        // Fungsi Parafrase
+        async function runParaphrase() {
+            const text = document.getElementById('inputParaphrase').value.trim();
+            if (!text) return;
+            const btn = document.getElementById('btnParaphrase');
+            const container = document.getElementById('resultParaphraseContainer');
+            const output = document.getElementById('resultParaphrase');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Memproses...`;
+            container.classList.add('hidden');
+
+            const systemPrompt = "Anda adalah asisten akademik profesional. Parafrase teks berikut agar bahasanya menjadi sangat baku, ilmiah, lugas, dan cocok untuk penulisan skripsi atau jurnal ilmiah dalam Bahasa Indonesia.";
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: text }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    output.innerText = candidate.content.parts[0].text;
+                    container.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-wand-magic-sparkles"></i> Proses Parafrase`;
+            }
+        }
+
+        // Fungsi Referensi Grounding
+        async function runReferenceFinder() {
+            const topic = document.getElementById('inputReference').value.trim();
+            if (!topic) return;
+            const btn = document.getElementById('btnReference');
+            const container = document.getElementById('resultReferenceContainer');
+            const output = document.getElementById('resultReference');
+            const sourceContainer = document.getElementById('sourceLinksContainer');
+            const sourceList = document.getElementById('sourceLinksList');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Mencari Literatur...`;
+            container.classList.add('hidden');
+            sourceContainer.classList.add('hidden');
+            sourceList.innerHTML = '';
+
+            const systemPrompt = "Anda adalah asisten riset dan pustakawan akademik profesional. Berikan ringkasan topik, potensi judul penelitian, serta rekomendasi referensi/literatur ilmiah yang relevan dengan topik yang dicari dalam Bahasa Indonesia.";
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Cari referensi dan ringkasan akademik untuk topik: ${topic}` }] }],
+                        tools: [{ "google_search": {} }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    output.innerText = candidate.content.parts[0].text;
+                    container.classList.remove('hidden');
+
+                    let sources = [];
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attr => ({ uri: attr.web?.uri, title: attr.web?.title }))
+                            .filter(src => src.uri && src.title);
+                    }
+
+                    if (sources.length > 0) {
+                        sourceContainer.classList.remove('hidden');
+                        sources.forEach(src => {
+                            const linkEl = document.createElement('a');
+                            linkEl.href = src.uri;
+                            linkEl.target = "_blank";
+                            linkEl.className = "text-xs text-blue-500 hover:underline flex items-center gap-1.5 truncate";
+                            linkEl.innerHTML = `<i class="fas fa-external-link-alt text-[10px]"></i> <span class="truncate">${src.title}</span>`;
+                            sourceList.appendChild(linkEl);
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-magnifying-glass"></i> Cari Referensi`;
+            }
+        }
+
+        // Fungsi PPT Outline
+        async function runPptGenerator() {
+            const topic = document.getElementById('inputPptTopic').value.trim();
+            if (!topic) return;
+            const btn = document.getElementById('btnPpt');
+            const container = document.getElementById('resultPptContainer');
+            const output = document.getElementById('resultPpt');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menyusun Slide...`;
+            container.classList.add('hidden');
+
+            const systemPrompt = "Anda adalah ahli presentasi akademik. Buatkan draf outline slide PowerPoint yang terstruktur dari Slide 1 hingga Slide 8 berdasarkan topik yang diberikan. Berikan judul slide, poin-poin materi singkat, dan catatan pembicara dalam Bahasa Indonesia.";
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: `Topik Presentasi: ${topic}` }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    output.innerText = candidate.content.parts[0].text;
+                    container.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-file-powerpoint"></i> Buat Outline PPT`;
+            }
+        }
+
+        // Fungsi Terjemahan Bahasa (DeepL Style)
+        async function runTranslate() {
+            const text = document.getElementById('inputTranslateText').value.trim();
+            const targetLang = document.getElementById('targetLanguage').value;
+            if (!text) return;
+
+            const btn = document.getElementById('btnTranslate');
+            const container = document.getElementById('resultTranslateContainer');
+            const output = document.getElementById('resultTranslate');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Menerjemahkan (DeepL Style)...`;
+            container.classList.add('hidden');
+
+            // Prompt gaya DeepL: Mengutamakan keakuratan konteks, struktur natural, alur kalimat mengalir, dan kosakata profesional/akademik.
+            const systemPrompt = `Anda adalah mesin penerjemah kelas dunia berstandar DeepL. Tugas Anda adalah menerjemahkan teks berikut ke dalam ${targetLang} dengan tingkat keakuratan makna yang tinggi, pilihan kosakata profesional atau akademis yang presisi, struktur kalimat yang mengalir secara natural dan idiomatis, serta menghindari terjemahan harfiah/kaku yang tidak sesuai konteks budaya atau keilmuan bahasa sasaran.`;
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: text }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] }
+                    })
+                });
+                const result = await response.json();
+                const candidate = result.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    output.innerText = candidate.content.parts[0].text;
+                    container.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-language"></i> Terjemahkan (DeepL Style)`;
+            }
+        }
+
+        // Fungsi Generator Gambar AI
+        async function runImageGenerator() {
+            const prompt = document.getElementById('inputImagePrompt').value.trim();
+            if (!prompt) return;
+
+            const btn = document.getElementById('btnImage');
+            const container = document.getElementById('resultImageContainer');
+            const imgResult = document.getElementById('generatedImageResult');
+
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Merender Gambar AI...`;
+            container.classList.add('hidden');
+
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        instances: { prompt: prompt },
+                        parameters: { "sampleCount": 1 }
+                    })
+                });
+                const result = await response.json();
+                if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                    const imageUrl = `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+                    imgResult.src = imageUrl;
+                    container.classList.remove('hidden');
+                } else {
+                    alert("Gagal merender gambar. Coba deskripsi yang berbeda.");
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fas fa-wand-magic-sparkles"></i> Generate Gambar`;
+            }
+        }
+
+        function copyResult(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check text-green-500"></i> Tersalin';
+            setTimeout(() => { btn.innerHTML = originalHTML; }, 1500);
+        }
+    </script>
+</body>
+</html>
