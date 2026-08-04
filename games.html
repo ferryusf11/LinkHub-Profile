@@ -97,7 +97,29 @@
         .solid-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
-            border-color: var(--accent);
+            border-color: var(--accent) !important; /* Force accent color on hover */
+        }
+
+        /* Penyesuaian agar teks dan gambar tetap rapi saat 3 kolom di layar HP */
+        @media (max-width: 640px) {
+            .game-card .p-4 {
+                padding: 0.5rem !important;
+                gap: 0.5rem !important;
+            }
+            .game-card .h-40 {
+                height: 6rem !important; 
+            }
+            .game-card h3 {
+                font-size: 0.75rem !important; 
+                line-height: 1.1 !important;
+                margin-bottom: 2px !important;
+            }
+            .game-card p, .game-card span {
+                font-size: 0.6rem !important;
+            }
+            .game-card .text-\\[10px\\] {
+                font-size: 0.55rem !important;
+            }
         }
     </style>
 </head>
@@ -106,36 +128,35 @@
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
         <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/10 dark:bg-indigo-600/15 blur-[120px] transition-colors duration-500"></div>
-        <!-- Grid Tekstur Halus -->
         <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
     </div>
 
     <div class="w-full max-w-[1300px] h-[100vh] md:h-[90vh] flex gap-4 md:gap-6 fade-in-up">
         
-        <!-- Sidebar Kiri (Desktop) -->
-        <aside class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-10 transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+        <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             <div class="flex flex-col items-center gap-6">
+                <!-- Tombol tutup (Hanya terlihat di mobile) -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
                 <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
                     <i class="fas fa-layer-group text-xl"></i>
                 </a>
                 
                 <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
                 
-                <!-- Menu Navigasi Utama -->
                 <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Dashboard Utama">
                     <i class="fas fa-compass text-lg"></i>
                 </a>
-                <!-- Menu Games (Aktif di Halaman Ini) -->
                 <a href="games.html" class="w-12 h-12 rounded-lg flex items-center justify-center shadow-sm transition-all" style="background-color: var(--bg-surface); color: var(--text-main);" title="Koleksi Game">
                     <i class="fas fa-gamepad text-lg"></i>
                 </a>
-                <!-- Portofolio (Menggantikan menu Pesan) -->
                 <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Portofolio & CV">
                     <i class="fas fa-id-card text-lg"></i>
                 </a>
             </div>
 
-            <!-- Sosial Media Bawah -->
             <div class="flex flex-col items-center gap-4">
                 <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#1877F2]" style="color: var(--text-muted);" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
@@ -149,7 +170,6 @@
             </div>
         </aside>
 
-        <!-- Main Content Wrapper -->
         <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             
             <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
@@ -158,29 +178,25 @@
                     <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);" title="Menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <!-- Pills Kategori Atas -->
                     <div class="hidden lg:flex items-center gap-2">
                         <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Dashboard</a>
                         <a href="games.html" class="px-5 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Koleksi Game</a>
-                        <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a
+                        <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a>
                     </div>
                 </div>
 
-                <!-- Kanan: Search, Theme Toggle, & Profile -->
                 <div class="flex items-center gap-3">
                     <div class="hidden md:flex rounded-lg px-4 py-2 items-center gap-2 w-56 transition-all" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <i class="fas fa-search text-xs" style="color: var(--text-muted);"></i>
                         <input type="text" id="gameSearch" placeholder="Cari game..." oninput="filterGames()" class="bg-transparent border-none outline-none text-sm w-full" style="color: var(--text-main);">
                     </div>
 
-                    <!-- Tombol Tema -->
                     <button onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);" title="Ganti Tema">
                         <i class="fas fa-moon dark:hidden text-sm"></i>
                         <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
                     </button>
 
-                    <!-- Profil Tag -->
-                    <div class="flex items-center gap-3 rounded-lg pl-1.5 pr-4 py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                    <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <img src="https://placehold.co/100x100/3b82f6/fff?text=Kamu" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
                         <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
                     </div>
@@ -191,14 +207,12 @@
                 
                 <div class="max-w-[1400px] mx-auto flex flex-col gap-6">
                     
-                    <!-- Header & Filter Tabs -->
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">Koleksi Game Aktif</h1>
                             <p class="text-sm mt-1" style="color: var(--text-muted);">Daftar game yang sedang dan sering dimainkan di perangkat Mobile & PC.</p>
                         </div>
 
-                        <!-- Tombol Opsi Filter: Semua, Mobile, PC -->
                         <div class="flex items-center gap-2 p-1 rounded-lg" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                             <button onclick="setFilter('all')" id="btn-all" class="px-4 py-1.5 rounded-md text-xs font-bold transition-all shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Semua</button>
                             <button onclick="setFilter('mobile')" id="btn-mobile" class="px-4 py-1.5 rounded-md text-xs font-medium transition-all" style="color: var(--text-muted);">📱 Mobile</button>
@@ -206,13 +220,14 @@
                         </div>
                     </div>
 
-                    <!-- Grid Game -->
-                    <div id="gameGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+                    <!-- Grid: 3 Kolom di Mobile, 4 Tablet, 5 PC -->
+                    <div id="gameGrid" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-5">
                         
-                        <!-- Game 1: Mobile Legends (Mobile) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="mobile" data-name="mobile legends bang bang" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 1 -->
+                        <!-- Di sini kita ganti inline style (bg & border) menjadi class Tailwind bg-blue-50 dan dark:bg-blue-900/30 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="mobile legends bang bang">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <img src="https://id.pinterest.com/pin/40954677858625141/" alt="Mobile Legends" class="w-full h-full object-cover opacity-80">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop" alt="Mobile Legends" class="w-full h-full object-cover opacity-80">
                                 <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -220,17 +235,17 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Mobile Legends</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">Rank: Mythic Glory • Role: Mage/Assassin</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 840 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Game 2: Valorant (PC) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="pc" data-name="valorant" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 2 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="valorant">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://pin.it/1O96JEM30=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
                                 <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -238,17 +253,17 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Valorant</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">Rank: Diamond 2 • Agent: Jett/Omen</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 1,200 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Game 3: Genshin Impact (Mobile) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="mobile" data-name="genshin impact" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 3 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="genshin impact">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://pin.it/1O96JEM30=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
                                 <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -256,17 +271,17 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Genshin Impact</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">AR 60 • Main: Raiden Shogun</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-yellow-500">Daily Routine</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 950 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Game 4: Cyberpunk 2077 (PC) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="pc" data-name="cyberpunk 2077" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 4 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="resident evil cyberpunk 2077">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://pin.it/1O96JEM30=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1605901309584-818e25960b8f?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
                                 <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -274,17 +289,17 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Resident Evil 2 Remake</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">Status: 100% Completed / DLC</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-gray-400">Tamat</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 140 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Game 5: PUBG Mobile (Mobile) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="mobile" data-name="pubg mobile" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 5 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="mobile" data-name="pubg mobile">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://pin.it/71IEPmcTn=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
                                 <span class="absolute top-2 right-2 bg-blue-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">Mobile</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -292,17 +307,17 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">PUBG Mobile</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">Ace Tier • Squad Leader</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-green-500">Berhenti</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 520 Jam</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Game 6: GTA V (PC) -->
-                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card" data-category="pc" data-name="gta v grand theft auto" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <!-- Game 6 -->
+                        <div class="game-card flex flex-col rounded-lg overflow-hidden solid-card bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/60 transition-colors" data-category="pc" data-name="gta v grand theft auto">
                             <div class="w-full h-40 relative overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://pin.it/39P0U6v6x=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=600&auto=format&fit=crop')] bg-cover bg-center opacity-80"></div>
                                 <span class="absolute top-2 right-2 bg-red-600/90 text-white px-2 py-0.5 rounded text-[10px] font-bold uppercase backdrop-blur-sm">PC</span>
                             </div>
                             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
@@ -310,7 +325,7 @@
                                     <h3 class="font-bold text-base mb-1" style="color: var(--text-main);">Grand Theft Auto V</h3>
                                     <p class="text-xs" style="color: var(--text-muted);">CEO Crime</p>
                                 </div>
-                                <div class="flex items-center justify-between pt-2 border-t" style="border-color: var(--border-color);">
+                                <div class="flex items-center justify-between pt-2 border-t border-blue-200 dark:border-blue-800/60">
                                     <span class="text-[11px] font-semibold text-green-500">Aktif Dimainkan</span>
                                     <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-clock text-[10px] mr-1"></i> 730 Jam</span>
                                 </div>
@@ -324,7 +339,6 @@
     </div>
 
     <script>
-        // Inisialisasi tema saat halaman dimuat
         (function() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'light') {
@@ -345,12 +359,22 @@
             }
         }
 
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
+        }
+
         let currentFilter = 'all';
 
         function setFilter(category) {
             currentFilter = category;
             
-            // Atur gaya tombol aktif
             const btnAll = document.getElementById('btn-all');
             const btnMobile = document.getElementById('btn-mobile');
             const btnPc = document.getElementById('btn-pc');
@@ -359,7 +383,6 @@
             const activeStyleColor = 'var(--bg-main)';
             const inactiveStyleColor = 'var(--text-muted)';
 
-            // Reset semua tombol
             [btnAll, btnMobile, btnPc].forEach(btn => {
                 btn.style.backgroundColor = 'transparent';
                 btn.style.color = inactiveStyleColor;
@@ -367,7 +390,6 @@
                 btn.classList.add('font-medium');
             });
 
-            // Aktifkan tombol yang dipilih
             let activeBtn = btnAll;
             if (category === 'mobile') activeBtn = btnMobile;
             if (category === 'pc') activeBtn = btnPc;
