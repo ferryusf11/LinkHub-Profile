@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive Highlight - Personal Hub</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Load Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --bg-surface: #f1f5f9;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #a855f7; /* Ungu untuk Archive */
+            --accent-hover: #9333ea;
+        }
+
+        .dark {
+            --bg-main: #050505;
+            --bg-panel: #121212;
+            --bg-surface: #1c1c1c;
+            --border-color: #2a2a2a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #a855f7;
+            --accent-hover: #9333ea;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Scrollbar Minimalis */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Kartu Archive */
+        .archive-card {
+            position: relative;
+            aspect-ratio: 1 / 1; /* Kotak ala Instagram/Galeri */
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+        .archive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+        /* Variasi aspect ratio untuk efek masonry simpel */
+        .archive-card.portrait { aspect-ratio: 4/5; }
+
+        /* Overlay Bawah */
+        .card-overlay {
+            background: linear-gradient(to top, rgba(0,0,0, 0.95) 0%, rgba(0,0,0, 0.4) 60%, transparent 100%);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            padding-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+        }
+        .archive-card:hover .card-overlay { opacity: 1; }
+
+        /* Mode Admin & Aksi */
+        .archive-card .admin-actions {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .archive-card:hover .admin-actions {
+            max-height: 50px;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+
+        .admin-only { display: none !important; }
+        body.mode-admin .admin-only { display: flex !important; }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-0 md:p-4 lg:p-4 w-screen h-screen overflow-hidden">
+
+    <!-- Efek Background Grid Hub -->
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-purple-500/10 dark:bg-purple-600/15 blur-[120px] transition-colors duration-500"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-pink-500/10 dark:bg-pink-600/15 blur-[120px] transition-colors duration-500"></div>
+        <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
+    </div>
+
+    <!-- Container Utama -->
+    <div class="w-full h-full flex gap-3 md:gap-4 fade-in-up">
+        
+        <!-- Sidebar Kiri -->
+        <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            <div class="flex flex-col items-center gap-6">
+                <!-- Tombol tutup mobile -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
+                <!-- Icon Utama Hub (Ungu) -->
+                <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
+                    <i class="fas fa-layer-group text-xl"></i>
+                </a>
+                
+                <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
+                
+                <!-- Navigasi -->
+                <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Dashboard Utama">
+                    <i class="fas fa-compass text-lg"></i>
+                </a>
+                <a href="archive.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all shadow-sm" style="background-color: var(--bg-surface); color: var(--text-main);" title="Archive Highlight">
+                    <i class="fas fa-images text-lg"></i>
+                </a>
+                <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Portofolio & Resume">
+                    <i class="fas fa-id-card text-lg"></i>
+                </a>
+            </div>
+
+            <div class="flex flex-col items-center gap-4">
+                <a href="#" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#333]" style="color: var(--text-muted);" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            
+            <!-- Navbar Atas -->
+            <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
+                
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <!-- Pills Kategori -->
+                    <div class="hidden lg:flex items-center gap-2">
+                        <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Dashboard</a>
+                        <span class="px-5 py-2 rounded-lg text-sm font-bold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Archive</span>
+                        <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a>
+                    </div>
+                </div>
+
+                <!-- Kanan: Theme Toggle, Lock, & Profile -->
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleLock()" id="lockBtn" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);" title="Mode Admin">
+                        <i class="fas fa-lock text-sm"></i>
+                    </button>
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);" title="Ganti Tema">
+                        <i class="fas fa-moon dark:hidden text-sm"></i>
+                        <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
+                    </button>
+                    <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <img src="foto-profil.jpg" onerror="this.src='https://placehold.co/100x100/3b82f6/fff?text=Kamu'" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
+                        <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8" style="background-color: var(--bg-main);">
+                <div class="w-full h-full max-w-[1400px] mx-auto">
+                    
+                    <!-- Header Archive & Tombol Tambah -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                        <div>
+                            <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight" style="color: var(--text-main);">Archive <span style="color: var(--accent);">Highlight</span></h1>
+                            <p class="text-sm mt-1" style="color: var(--text-muted);">Dokumentasi kegiatan, story harian, & momen spesial.</p>
+                        </div>
+                        <button onclick="openModal()" class="admin-only bg-purple-600 hover:bg-purple-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-md transition transform hover:-translate-y-1">
+                            <i class="fas fa-plus mr-1"></i> Postingan Baru
+                        </button>
+                    </div>
+
+                    <!-- Filter Kategori -->
+                    <div class="flex gap-2 mb-8 overflow-x-auto pb-2 scrollbar-hide">
+                        <button onclick="setFilter('Semua')" class="filter-btn filter-kategori active px-4 py-2 rounded-md text-xs font-bold bg-purple-600 text-white shadow-sm whitespace-nowrap">Semua</button>
+                        <button onclick="setFilter('Kegiatan')" class="filter-btn filter-kategori px-4 py-2 rounded-md text-xs font-medium whitespace-nowrap transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);"><i class="fas fa-users mr-1"></i> Kegiatan</button>
+                        <button onclick="setFilter('Story')" class="filter-btn filter-kategori px-4 py-2 rounded-md text-xs font-medium whitespace-nowrap transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);"><i class="fas fa-camera-retro mr-1"></i> Story</button>
+                        <button onclick="setFilter('Momen')" class="filter-btn filter-kategori px-4 py-2 rounded-md text-xs font-medium whitespace-nowrap transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);"><i class="fas fa-star mr-1"></i> Momen</button>
+                    </div>
+
+                    <!-- Indikator Loading -->
+                    <div id="loadingIndicator" class="text-center py-16">
+                        <i class="fas fa-circle-notch fa-spin text-4xl text-purple-500 mb-4"></i>
+                        <p class="font-medium" style="color: var(--text-muted);">Memuat Memori...</p>
+                    </div>
+
+                    <!-- Area Grid Galeri -->
+                    <div id="archiveGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4 hidden">
+                        <!-- Kartu akan dimasukkan ke sini oleh JavaScript -->
+                    </div>
+                    
+                    <!-- Area Kosong -->
+                    <div id="emptyState" class="hidden text-center py-20 rounded-xl" style="background-color: var(--bg-surface); border: 2px dashed var(--border-color);">
+                        <i class="fas fa-images text-5xl mb-4" style="color: var(--border-color);"></i>
+                        <h3 class="text-lg font-bold" style="color: var(--text-main);">Album Kosong</h3>
+                        <p class="text-sm mt-1" style="color: var(--text-muted);">Belum ada dokumentasi yang diunggah.</p>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Form (Tambah/Edit dengan Fitur Upload File) -->
+    <div id="itemModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-md mx-4 rounded-xl shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" style="background-color: var(--bg-panel); border: 1px solid var(--border-color);">
+            <div class="p-5 flex justify-between items-center" style="border-bottom: 1px solid var(--border-color);">
+                <h2 id="modalTitle" class="text-lg font-bold" style="color: var(--text-main);">Postingan Baru</h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <form id="itemForm" class="p-5 overflow-y-auto flex-1 flex flex-col gap-4">
+                <input type="hidden" id="itemId">
+                
+                <div>
+                    <label class="block text-xs font-bold mb-1" style="color: var(--text-muted);">Caption / Keterangan *</label>
+                    <textarea id="inputCaption" required rows="2" class="w-full rounded-lg px-4 py-2.5 text-sm outline-none transition-colors resize-none" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-1" style="color: var(--text-muted);">Kategori</label>
+                        <select id="inputKategori" class="w-full rounded-lg px-4 py-2.5 text-sm outline-none" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);">
+                            <option value="Kegiatan">Kegiatan</option>
+                            <option value="Story">Story</option>
+                            <option value="Momen">Momen</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1" style="color: var(--text-muted);">Tanggal</label>
+                        <input type="date" id="inputDate" required class="w-full rounded-lg px-4 py-2.5 text-sm outline-none" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);">
+                    </div>
+                </div>
+                
+                <!-- BAGIAN UPLOAD GAMBAR -->
+                <div>
+                    <label class="block text-xs font-bold mb-1" style="color: var(--text-muted);">Pilih Foto</label>
+                    <div class="flex items-center gap-3">
+                        <!-- Preview Box -->
+                        <div class="w-16 h-16 rounded-md overflow-hidden shrink-0 flex items-center justify-center relative" style="background-color: var(--bg-main); border: 1px solid var(--border-color);">
+                            <i id="imagePlaceholderIcon" class="fas fa-image text-xl" style="color: var(--text-muted);"></i>
+                            <img id="imagePreview" src="" class="absolute inset-0 w-full h-full object-cover hidden">
+                        </div>
+                        
+                        <!-- Upload Input -->
+                        <div class="flex-1 min-w-0">
+                            <input type="file" id="inputFile" accept="image/*" class="block w-full text-xs cursor-pointer rounded-md file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-bold file:bg-purple-600 file:text-white hover:file:bg-purple-700 transition-colors" style="color: var(--text-muted);">
+                            <p class="text-[10px] mt-1" style="color: var(--text-muted);">Otomatis dikompresi (Max 1MB)</p>
+                        </div>
+                    </div>
+                    <!-- Hidden field untuk menampung gambar Base64 -->
+                    <input type="hidden" id="inputImageBase64">
+                </div>
+
+                <div class="pt-4 mt-2 flex justify-end gap-3" style="border-top: 1px solid var(--border-color);">
+                    <button type="button" onclick="closeModal()" class="px-5 py-2 rounded-lg text-sm font-bold transition-colors" style="background-color: var(--bg-surface); color: var(--text-muted);">Batal</button>
+                    <button type="submit" class="px-6 py-2 rounded-lg text-sm font-bold transition-colors text-white bg-purple-600 hover:bg-purple-700 shadow-md">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal PIN Keamanan -->
+    <div id="pinModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[100] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-xs mx-4 p-6 rounded-xl shadow-2xl text-center transform scale-95 transition-transform duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color);">
+            <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 bg-purple-500/20 text-purple-500">
+                <i class="fas fa-shield-alt text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-1" style="color: var(--text-main);">Akses Admin</h3>
+            <p class="text-xs mb-5" style="color: var(--text-muted);">Masukkan PIN keamanan.</p>
+            
+            <input type="password" id="pinInput" placeholder="••••" maxlength="4" class="w-full text-center tracking-[0.5em] text-2xl rounded-lg px-4 py-3 mb-4 outline-none font-mono" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);">
+            
+            <div class="flex gap-2">
+                <button onclick="closePinModal()" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors" style="background-color: var(--bg-surface); color: var(--text-muted);">Batal</button>
+                <button onclick="verifyPin()" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold text-white bg-purple-600 hover:bg-purple-700 shadow-md transition-colors">Buka</button>
+            </div>
+            <p id="pinError" class="text-red-500 text-xs mt-3 hidden font-semibold">PIN salah!</p>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div id="deleteModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] flex items-center justify-center hidden opacity-0 transition-opacity duration-300">
+        <div class="w-full max-w-xs mx-4 p-6 rounded-xl shadow-2xl text-center transform scale-95 transition-transform duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color);">
+            <div class="w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 bg-red-500/20 text-red-500">
+                <i class="fas fa-trash-alt text-2xl"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-1" style="color: var(--text-main);">Hapus Foto?</h3>
+            <p class="text-xs mb-6" style="color: var(--text-muted);">Dokumentasi tidak dapat dikembalikan setelah dihapus.</p>
+            
+            <input type="hidden" id="deleteTargetId">
+            
+            <div class="flex gap-2">
+                <button onclick="closeDeleteModal()" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold transition-colors" style="background-color: var(--bg-surface); color: var(--text-muted);">Batal</button>
+                <button onclick="executeDelete()" class="flex-1 px-4 py-2 rounded-lg text-sm font-bold text-white bg-red-600 hover:bg-red-700 shadow-md transition-colors">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, orderBy, query } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Menggunakan Database Firebase yang sama
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOjbvEltcPooIhxlyIlRSfOCBmy-uDxmY",
+            authDomain: "popculture-vault.firebaseapp.com",
+            projectId: "popculture-vault",
+            storageBucket: "popculture-vault.firebasestorage.app",
+            messagingSenderId: "370940422047",
+            appId: "1:370940422047:web:c0b19cdfb0766b8e78bfaa"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Path Collection khusus Archive (terpisah dari PopVault)
+        const APP_ID = 'archive-app';
+        let dbCollection;
+
+        let archiveData = [];
+        let currentFilter = 'Semua';
+        
+        let isAdmin = false;
+        const SECRET_PIN = "1234";
+
+        // Inisialisasi Tema
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+            } else {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        window.toggleTheme = function() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        };
+
+        window.toggleMobileMenu = function() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
+        }
+
+        // Ambil Data Firebase
+        async function initializeAppLogic() {
+            try {
+                await signInAnonymously(auth);
+                // Membuat query untuk mengurutkan data berdasarkan timestamp terbaru
+                const baseCollection = collection(db, 'artifacts', APP_ID, 'public', 'data', 'archiveItems');
+                dbCollection = baseCollection;
+                
+                onSnapshot(baseCollection, (snapshot) => {
+                    archiveData = snapshot.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                    
+                    // Urutkan manual berdasarkan tanggal terbaru di frontend
+                    archiveData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                    document.getElementById('loadingIndicator').classList.add('hidden');
+                    document.getElementById('archiveGrid').classList.remove('hidden');
+                    renderArchive();
+                }, (error) => {
+                    console.error("Gagal menarik data:", error);
+                    document.getElementById('loadingIndicator').innerHTML = `<p class="text-red-500 font-bold">Error Database.</p>`;
+                });
+            } catch (error) {
+                console.error("Auth Gagal:", error);
+            }
+        }
+        initializeAppLogic();
+
+        // Format Tanggal ke Bahasa Indonesia
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        window.renderArchive = function() {
+            const grid = document.getElementById('archiveGrid');
+            const emptyState = document.getElementById('emptyState');
+            grid.innerHTML = '';
+
+            const filteredData = archiveData.filter(item => {
+                return currentFilter === 'Semua' || item.kategori === currentFilter;
+            });
+
+            if (filteredData.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            filteredData.forEach((item, index) => {
+                let tagColor = 'bg-purple-600';
+                if(item.kategori === 'Story') tagColor = 'bg-pink-500';
+                if(item.kategori === 'Momen') tagColor = 'bg-yellow-500 text-yellow-950';
+
+                // Tentukan aspect ratio, kalau story kita buat agak portrait
+                let aspectClass = item.kategori === 'Story' ? 'portrait' : '';
+                
+                const imgUrl = item.image && item.image.trim() !== "" ? item.image : `https://placehold.co/500x500/1e293b/ffffff?text=No+Photo`;
+                const delay = index * 0.05;
+
+                const card = document.createElement('div');
+                card.className = `archive-card ${aspectClass} animate-fade-up`;
+                card.style.animationDelay = `${delay}s`;
+                card.style.backgroundColor = 'var(--bg-surface)';
+
+                card.innerHTML = `
+                    <img src="${imgUrl}" alt="Archive Photo" class="w-full h-full object-cover">
+                    
+                    <div class="card-overlay">
+                        <!-- Label Kategori & Tanggal -->
+                        <div class="absolute top-2 left-2 flex justify-between w-[calc(100%-1rem)]">
+                            <span class="px-2.5 py-0.5 rounded text-[10px] font-bold ${tagColor} text-white shadow-sm">${item.kategori}</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-black/60 backdrop-blur text-white">${formatDate(item.date)}</span>
+                        </div>
+                        
+                        <p class="text-sm font-medium drop-shadow-md text-white line-clamp-2 leading-snug">${item.caption}</p>
+                        
+                        <div class="admin-actions admin-only w-full flex gap-1 mt-2">
+                            <button onclick="editItem('${item.id}')" class="flex-1 bg-white/20 hover:bg-white/30 backdrop-blur border border-white/20 text-white py-1.5 rounded transition text-[10px] font-bold uppercase">Edit</button>
+                            <button onclick="requestDelete('${item.id}')" class="flex-[0.3] bg-red-500/80 hover:bg-red-500 text-white py-1.5 rounded transition text-[10px] border border-red-400/50"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        };
+
+        // Filter Logic
+        window.setFilter = function(value) {
+            currentFilter = value;
+            const activeStyleBg = 'var(--text-main)';
+            const activeStyleColor = 'var(--bg-main)';
+            const inactiveStyleColor = 'var(--text-muted)';
+            const inactiveBg = 'transparent';
+
+            document.querySelectorAll('.filter-kategori').forEach(btn => {
+                btn.style.backgroundColor = inactiveBg;
+                btn.style.color = inactiveStyleColor;
+                btn.classList.remove('bg-purple-600', 'text-white', 'font-bold', 'shadow-sm');
+                btn.classList.add('font-medium');
+                
+                if(btn.innerText.includes(value) || (value==='Semua' && btn.innerText==='Semua')) {
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                    btn.classList.remove('font-medium');
+                    btn.classList.add('bg-purple-600', 'text-white', 'font-bold', 'shadow-sm');
+                }
+            });
+            renderArchive();
+        };
+
+        const pinModal = document.getElementById('pinModal');
+        const pinModalInner = pinModal.querySelector('div');
+
+        window.toggleLock = function() {
+            if(isAdmin) {
+                isAdmin = false;
+                document.body.classList.remove('mode-admin');
+                document.getElementById('lockBtn').innerHTML = '<i class="fas fa-lock text-sm"></i>';
+                document.getElementById('lockBtn').classList.remove('text-purple-500', 'border-purple-500');
+                document.getElementById('lockBtn').classList.add('text-muted');
+            } else {
+                document.getElementById('pinInput').value = '';
+                document.getElementById('pinError').classList.add('hidden');
+                pinModal.classList.remove('hidden');
+                setTimeout(() => {
+                    pinModal.classList.remove('opacity-0');
+                    pinModalInner.classList.remove('scale-95');
+                    document.getElementById('pinInput').focus();
+                }, 10);
+            }
+        };
+
+        window.closePinModal = function() {
+            pinModal.classList.add('opacity-0');
+            pinModalInner.classList.add('scale-95');
+            setTimeout(() => pinModal.classList.add('hidden'), 300);
+        };
+
+        window.verifyPin = function() {
+            const input = document.getElementById('pinInput').value;
+            if(input === SECRET_PIN) {
+                isAdmin = true;
+                document.body.classList.add('mode-admin');
+                document.getElementById('lockBtn').innerHTML = '<i class="fas fa-lock-open text-sm"></i>';
+                document.getElementById('lockBtn').classList.add('text-purple-500', 'border-purple-500');
+                closePinModal();
+            } else {
+                document.getElementById('pinError').classList.remove('hidden');
+                const pinInput = document.getElementById('pinInput');
+                pinInput.style.borderColor = 'red';
+                setTimeout(() => pinInput.style.borderColor = 'var(--border-color)', 1000);
+            }
+        };
+
+        document.getElementById('pinInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verifyPin();
+        });
+
+        // Logika Upload Gambar & Kompresi Base64
+        document.getElementById('inputFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 600; // Kompresi maksimal 600px untuk Galeri
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > MAX_WIDTH) {
+                        height = Math.round((height *= MAX_WIDTH / width));
+                        width = MAX_WIDTH;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                    
+                    document.getElementById('inputImageBase64').value = dataUrl;
+                    document.getElementById('imagePreview').src = dataUrl;
+                    document.getElementById('imagePreview').classList.remove('hidden');
+                    document.getElementById('imagePlaceholderIcon').classList.add('hidden');
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        const modal = document.getElementById('itemModal');
+        const modalInner = modal.querySelector('div');
+        const form = document.getElementById('itemForm');
+
+        window.openModal = function() {
+            if(!isAdmin) { toggleLock(); return; }
+            document.getElementById('modalTitle').innerText = "Postingan Baru";
+            form.reset();
+            document.getElementById('itemId').value = "";
+            document.getElementById('inputDate').valueAsDate = new Date(); // Default hari ini
+            
+            // Reset Gambar
+            document.getElementById('inputFile').value = "";
+            document.getElementById('inputImageBase64').value = "";
+            document.getElementById('imagePreview').src = "";
+            document.getElementById('imagePreview').classList.add('hidden');
+            document.getElementById('imagePlaceholderIcon').classList.remove('hidden');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalInner.classList.remove('scale-95');
+            }, 10);
+        };
+
+        window.closeModal = function() {
+            modal.classList.add('opacity-0');
+            modalInner.classList.add('scale-95');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        };
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if(!isAdmin || !dbCollection) return;
+
+            const id = document.getElementById('itemId').value;
+            const base64Image = document.getElementById('inputImageBase64').value;
+            
+            // Validasi: Wajib ada foto
+            if(!base64Image && !id) {
+                alert("Harap pilih foto terlebih dahulu!");
+                return;
+            }
+
+            const newItem = {
+                caption: document.getElementById('inputCaption').value,
+                kategori: document.getElementById('inputKategori').value,
+                date: document.getElementById('inputDate').value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Hanya update image kalau ada perubahan (tidak menimpa yang lama jika kosong)
+            if(base64Image) {
+                newItem.image = base64Image;
+            }
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = "Menyimpan...";
+            submitBtn.disabled = true;
+
+            try {
+                if (id) {
+                    const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'archiveItems', id);
+                    await updateDoc(docRef, newItem);
+                } else {
+                    await addDoc(dbCollection, newItem);
+                }
+                closeModal();
+            } catch (error) {
+                console.error("Gagal simpan:", error);
+            } finally {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+
+        window.editItem = function(id) {
+            if(!isAdmin) return;
+            const item = archiveData.find(i => i.id === id);
+            if (!item) return;
+
+            document.getElementById('modalTitle').innerText = "Edit Postingan";
+            document.getElementById('itemId').value = item.id;
+            document.getElementById('inputCaption').value = item.caption;
+            document.getElementById('inputKategori').value = item.kategori || 'Kegiatan';
+            document.getElementById('inputDate').value = item.date || '';
+
+            // Load Gambar
+            document.getElementById('inputImageBase64').value = ""; // Jangan langsung isi base64 lama ke hidden input kecuali mau direplace
+            document.getElementById('inputFile').value = ""; 
+
+            if(item.image && item.image.trim() !== '') {
+                document.getElementById('imagePreview').src = item.image;
+                document.getElementById('imagePreview').classList.remove('hidden');
+                document.getElementById('imagePlaceholderIcon').classList.add('hidden');
+            } else {
+                document.getElementById('imagePreview').src = "";
+                document.getElementById('imagePreview').classList.add('hidden');
+                document.getElementById('imagePlaceholderIcon').classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalInner.classList.remove('scale-95');
+            }, 10);
+        };
+
+        const deleteModal = document.getElementById('deleteModal');
+        const deleteModalInner = deleteModal.querySelector('div');
+
+        window.requestDelete = function(id) {
+            if(!isAdmin) return;
+            document.getElementById('deleteTargetId').value = id;
+            deleteModal.classList.remove('hidden');
+            setTimeout(() => {
+                deleteModal.classList.remove('opacity-0');
+                deleteModalInner.classList.remove('scale-95');
+            }, 10);
+        };
+
+        window.closeDeleteModal = function() {
+            deleteModal.classList.add('opacity-0');
+            deleteModalInner.classList.add('scale-95');
+            setTimeout(() => deleteModal.classList.add('hidden'), 300);
+        };
+
+        window.executeDelete = async function() {
+            if(!isAdmin || !dbCollection) return;
+            const id = document.getElementById('deleteTargetId').value;
+            
+            try {
+                const docRef = doc(db, 'artifacts', APP_ID, 'public', 'data', 'archiveItems', id);
+                await deleteDoc(docRef);
+                closeDeleteModal();
+            } catch(error) {
+                console.error("Gagal menghapus:", error);
+            }
+        };
+    </script>
+</body>
+</html>
