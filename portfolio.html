@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio & Resume - M. Yusuf Firmansyah</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Load Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Load Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-panel: #ffffff;
+            --bg-surface: #f1f5f9;
+            --border-color: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+        }
+
+        .dark {
+            --bg-main: #050505;
+            --bg-panel: #121212;
+            --bg-surface: #1c1c1c;
+            --border-color: #2a2a2a;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Scrollbar Minimalis */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        /* Animasi Masuk */
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Kartu Solid dengan Sudut Tegas (Less Rounded) */
+        .solid-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .solid-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.12);
+            border-color: var(--accent);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-0 md:p-6 lg:p-8">
+
+    <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
+        <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
+        <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/10 dark:bg-indigo-600/15 blur-[120px] transition-colors duration-500"></div>
+        <!-- Grid Tekstur Halus -->
+        <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
+    </div>
+
+    <div class="w-full max-w-[1300px] h-[100vh] md:h-[90vh] flex gap-4 md:gap-6 fade-in-up">
+        
+        <aside class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-10 transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            <div class="flex flex-col items-center gap-6">
+                <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
+                    <i class="fas fa-layer-group text-xl"></i>
+                </a>
+                
+                <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
+                
+                <!-- Beranda -->
+                <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Dashboard Utama">
+                    <i class="fas fa-compass text-lg"></i>
+                </a>
+                <!-- Games -->
+                <a href="games.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Koleksi Game">
+                    <i class="fas fa-gamepad text-lg"></i>
+                </a>
+                <!-- Portofolio (Aktif di Halaman Ini) -->
+                <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center shadow-sm transition-all" style="background-color: var(--bg-surface); color: var(--text-main);" title="Portofolio & Resume">
+                    <i class="fas fa-id-card text-lg"></i>
+                </a>
+            </div>
+
+            <!-- Sosial Media Bawah -->
+            <div class="flex flex-col items-center gap-4">
+                <a href="mailto:mr.lokabandang@gmail.com" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-blue-600" style="color: var(--text-muted);" title="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://github.com" target="_blank" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#333]" style="color: var(--text-muted);" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Wrapper -->
+        <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+            
+            <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
+                
+                <div class="flex items-center gap-4">
+                    <!-- Pills Navigasi Kategori -->
+                    <div class="flex items-center gap-2">
+                        <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Dashboard</a>
+                        <a href="games.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Koleksi Game</a>
+                        <a href="portfolio.html" class="px-4 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Portofolio & CV</a>
+                    </div>
+                </div>
+
+                <!-- Kanan: Theme Toggle, & Profile -->
+                <div class="flex items-center gap-3">
+                    <!-- Tombol Tema -->
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-lg flex items-center justify-center transition-all hover:scale-105" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-main);" title="Ganti Tema">
+                        <i class="fas fa-moon dark:hidden text-sm"></i>
+                        <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
+                    </button>
+
+                    <!-- Profil Tag -->
+                    <div class="flex items-center gap-3 rounded-lg pl-1.5 pr-4 py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <img src="https://placehold.co/100x100/3b82f6/fff?text=Yusuf" alt="M. Yusuf" class="w-8 h-8 rounded-lg object-cover">
+                        <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">M. Yusuf F.</span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8" style="background-color: var(--bg-main);">
+                
+                <div class="max-w-[1100px] mx-auto flex flex-col gap-8">
+                    
+                    <!-- Header Kartu Profil & Kontak -->
+                    <div class="p-6 md:p-8 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6 solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase" style="background-color: var(--accent); color: white;">Open For Opportunities</span>
+                                <span class="text-xs" style="color: var(--text-muted);"><i class="fas fa-map-marker-alt mr-1"></i> Kab. Sidenreng Rappang, Sul-Sel</span>
+                            </div>
+                            <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight" style="color: var(--text-main);">M. Yusuf Firmansyah</h1>
+                            <p class="text-sm font-medium" style="color: var(--accent);">Administrasi, Perencanaan Strategis, & Pengelolaan Bisnis Digital</p>
+                            <p class="text-xs max-w-2xl mt-1 leading-relaxed" style="color: var(--text-muted);">
+                                Tipikal pekerja terstruktur, adaptif terhadap sistem, berdisiplin tinggi dalam SOP perusahaan, serta berpengalaman dalam manajemen administrasi, perbankan, logistik, dan media visual digital.
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-2 w-full md:w-auto shrink-0">
+                            <a href="mailto:mr.lokabandang@gmail.com" class="px-5 py-2.5 rounded-lg font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition-all hover:opacity-90" style="background-color: var(--text-main); color: var(--bg-main);">
+                                <i class="fas fa-paper-plane"></i> Hubungi Saya
+                            </a>
+                            <a href="tel:+6285281838791" class="px-5 py-2.5 rounded-lg font-semibold text-xs flex items-center justify-center gap-2 transition-all" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">
+                                <i class="fas fa-phone"></i> +62 852-8183-8791
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Grid Bagian Utama: Pengalaman & Keahlian -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Kolom Kiri & Tengah: Pengalaman Kerja & Pendidikan (2 Kolom di LG) -->
+                        <div class="lg:col-span-2 flex flex-col gap-6">
+                            
+                            <!-- Pengalaman Kerja -->
+                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                                <h2 class="text-lg font-bold mb-5 flex items-center gap-2" style="color: var(--text-main);">
+                                    <i class="fas fa-briefcase text-blue-500"></i> Pengalaman Kerja
+                                </h2>
+                                
+                                <div class="flex flex-col gap-6">
+                                    
+                                    <!-- Job 1 -->
+                                    <div class="relative pl-5 border-l-2" style="border-color: var(--accent);">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                                            <h3 class="font-bold text-base" style="color: var(--text-main);">Desainer Grafis & Administratif</h3>
+                                            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-muted);">Nov 2025 - Mei 2026</span>
+                                        </div>
+                                        <p class="text-xs font-semibold mb-2" style="color: var(--accent);">PDAM Tirta Saromase Sidrap</p>
+                                        <ul class="text-xs space-y-1.5 list-disc list-inside leading-relaxed" style="color: var(--text-muted);">
+                                            <li>Mengelola administrasi pergudangan logistik teknik (stock card, sirkulasi barang, verifikasi berita acara material).</li>
+                                            <li>Merancang media komunikasi visual poster edukasi publik & draf presentasi strategis perusahaan.</li>
+                                            <li>Mengoperasikan dan merekonsiliasi data survei lapangan serta proyeksi kebutuhan jaringan air bersih.</li>
+                                            <li>Melakukan pemeliharaan perangkat (PC maintenance & troubleshooting) unit Hubungan Pelanggan (Hublang).</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Job 2 -->
+                                    <div class="relative pl-5 border-l-2" style="border-color: var(--border-color);">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                                            <h3 class="font-bold text-base" style="color: var(--text-main);">Product Marketing</h3>
+                                            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-muted);">Feb 2025 - Jun 2025</span>
+                                        </div>
+                                        <p class="text-xs font-semibold mb-2" style="color: var(--accent);">Amelia Farm</p>
+                                        <ul class="text-xs space-y-1.5 list-disc list-inside leading-relaxed" style="color: var(--text-muted);">
+                                            <li>Merancang, membangun, dan mengelola website company profile interaktif untuk digitalisasi sektor peternakan ayam petelur.</li>
+                                            <li>Mengintegrasikan strategi pemasaran konten (content marketing) guna meningkatkan brand awareness mitra bisnis.</li>
+                                            <li>Mengelola administrasi infrastruktur web (konfigurasi hosting & pemeliharaan domain).</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Job 3 -->
+                                    <div class="relative pl-5 border-l-2" style="border-color: var(--border-color);">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                                            <h3 class="font-bold text-base" style="color: var(--text-main);">Asisten Operasional</h3>
+                                            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-muted);">Mar 2024 - Mei 2024</span>
+                                        </div>
+                                        <p class="text-xs font-semibold mb-2" style="color: var(--accent);">Bank Syariah Indonesia Kcp Sidrap</p>
+                                        <ul class="text-xs space-y-1.5 list-disc list-inside leading-relaxed" style="color: var(--text-muted);">
+                                            <li>Mengedukasi nasabah mengenai karakteristik & portofolio produk perbankan syariah.</li>
+                                            <li>Mendukung efisiensi operasional harian kantor cabang dengan standar layanan prima (customer service excellence).</li>
+                                        </ul>
+                                    </div>
+
+                                    <!-- Job 4 -->
+                                    <div class="relative pl-5 border-l-2" style="border-color: var(--border-color);">
+                                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-1">
+                                            <h3 class="font-bold text-base" style="color: var(--text-main);">Operator SIREKAP & Anggota KPPS</h3>
+                                            <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-muted);">Feb 2024 - Feb 2024</span>
+                                        </div>
+                                        <p class="text-xs font-semibold mb-2" style="color: var(--accent);">KPU</p>
+                                        <ul class="text-xs space-y-1.5 list-disc list-inside leading-relaxed" style="color: var(--text-muted);">
+                                            <li>Mengoperasikan aplikasi SIREKAP mobile untuk digitalisasi dan konversi data numerik pemungutan suara secara real-time.</li>
+                                            <li>Melakukan validasi hasil OCR serta troubleshooting perangkat mobile di bawah linimasa kerja ketat.</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Pendidikan -->
+                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                                <h2 class="text-lg font-bold mb-4 flex items-center gap-2" style="color: var(--text-main);">
+                                    <i class="fas fa-graduation-cap text-blue-500"></i> Pendidikan
+                                </h2>
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-bold text-base" style="color: var(--text-main);">Universitas Muhammadiyah Sidenreng Rappang</h3>
+                                        <span class="text-xs font-semibold px-2 py-0.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-muted);">2021 - 2025</span>
+                                    </div>
+                                    <p class="text-xs font-semibold" style="color: var(--accent);">S1 - Bisnis Digital (Digital Business)</p>
+                                    <p class="text-xs mt-2 leading-relaxed" style="color: var(--text-muted);">
+                                        Fokus Studi: Manajemen bisnis komprehensif, strategi pemasaran, administrasi operasional, ekosistem bisnis digital, algoritma dasar & lanjutan, serta perancangan desain web.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Kolom Kanan: Keahlian, Sertifikat & Preferensi -->
+                        <div class="flex flex-col gap-6">
+                            
+                            <!-- Keahlian -->
+                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                                <h2 class="text-lg font-bold mb-4 flex items-center gap-2" style="color: var(--text-main);">
+                                    <i class="fas fa-tools text-blue-500"></i> Keahlian & Kompetensi
+                                </h2>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Customer Service</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Teamwork</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Analytical Skills</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Web Design</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Microsoft Word / Office</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Communication</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Canva Design</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Design Thinking</span>
+                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Administration</span>
+                                </div>
+                            </div>
+
+                            <!-- Sertifikasi Resmi -->
+                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                                <h2 class="text-lg font-bold mb-3 flex items-center gap-2" style="color: var(--text-main);">
+                                    <i class="fas fa-certificate text-yellow-500"></i> Sertifikasi Resmi
+                                </h2>
+                                <div class="flex flex-col gap-2">
+                                    <h3 class="font-bold text-sm" style="color: var(--text-main);">Strategi Komunikasi & Branding Digital</h3>
+                                    <p class="text-[11px] font-semibold" style="color: var(--accent);">Kementerian Ketenagakerjaan RI x Perumda Tirta Saromase</p>
+                                    <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+                                        Predikat: <strong class="text-green-500">SANGAT BAIK</strong> (No. MN.073.050322.02.2025). Mencakup kompetensi komunikasi korporat, manajemen dokumen lintas fungsional, dan optimasi infrastruktur digital pelayanan.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Preferensi Peran -->
+                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                                <h2 class="text-lg font-bold mb-3 flex items-center gap-2" style="color: var(--text-main);">
+                                    <i class="fas fa-bullseye text-blue-500"></i> Fokus & Peran
+                                </h2>
+                                <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
+                                    Memiliki minat pada posisi berbasis kantor atau lapangan, manajemen administrasi, perencanaan strategis, serta pengelolaan bisnis digital dengan standar etika kerja dan kedisiplinan yang tinggi.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Inisialisasi tema saat halaman dimuat
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                document.documentElement.classList.remove('dark');
+            } else {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+    </script>
+</body>
+</html>
