@@ -101,7 +101,7 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-0 md:p-6 lg:p-8">
+<body class="flex items-center justify-center p-0 md:p-3 lg:p-4 w-screen h-screen overflow-hidden">
 
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
@@ -110,10 +110,9 @@
         <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
     </div>
 
-    <div class="w-full max-w-[1300px] h-[100vh] md:h-[90vh] flex gap-4 md:gap-6 fade-in-up">
+    <div class="w-full h-full flex gap-3 md:gap-4 fade-in-up">
         
         <!-- Sidebar Kiri (Desktop & Mobile Dropdown) -->
-        <!-- Memperbarui aside dengan ID dan posisi absolute untuk versi mobile -->
         <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             <!-- Logo & Home -->
             <div class="flex flex-col items-center gap-6">
