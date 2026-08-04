@@ -55,13 +55,12 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Scrollbar Minimalis */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -73,7 +72,6 @@
             border-radius: 4px;
         }
 
-        /* Animasi Masuk */
         .fade-in-up {
             animation: fadeInUp 0.5s ease-out forwards;
             opacity: 0;
@@ -90,7 +88,6 @@
             }
         }
 
-        /* Kartu Solid dengan Sudut Tegas (Less Rounded) */
         .solid-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
@@ -101,7 +98,7 @@
         }
     </style>
 </head>
-<body class="flex items-center justify-center p-0 md:p-4 lg:p-4 w-screen h-screen overflow-hidden">
+<body class="flex items-center justify-center p-0 md:p-3 lg:p-4 w-screen h-screen overflow-hidden">
 
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
@@ -109,24 +106,21 @@
         <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.06]" style="background-image: linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px); background-size: 32px 32px;"></div>
     </div>
 
-    <!-- Container Utama -->
     <div class="w-full h-full flex gap-3 md:gap-4 fade-in-up">
         
         <!-- Sidebar Kiri -->
         <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             <div class="flex flex-col items-center gap-6">
-                <!-- Tombol tutup (Hanya mobile) -->
                 <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
                     <i class="fas fa-times text-xl"></i>
                 </button>
 
-                <a href="#" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
+                <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
                     <i class="fas fa-layer-group text-xl"></i>
                 </a>
                 
                 <div class="w-8 border-t" style="border-color: var(--border-color);"></div>
                 
-                <!-- Menu Navigasi -->
                 <a href="index.html" class="w-12 h-12 rounded-lg flex items-center justify-center shadow-sm transition-all" style="background-color: var(--bg-surface); color: var(--text-main);" title="Dashboard Utama">
                     <i class="fas fa-compass text-lg"></i>
                 </a>
@@ -135,7 +129,6 @@
                 </a>
             </div>
 
-            <!-- Sosial Media -->
             <div class="flex flex-col items-center gap-4">
                 <a href="https://www.facebook.com/ferryboy11" target="_blank" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#1877F2]" style="color: var(--text-muted);" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
@@ -152,21 +145,18 @@
         <!-- Main Content -->
         <main class="flex-1 flex flex-col overflow-hidden shadow-2xl relative transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             
-            <!-- Navbar Atas -->
             <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300 backdrop-blur-md bg-opacity-90" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
                 
                 <div class="flex items-center gap-4">
                     <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);" title="Menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
-                    <!-- Pills Kategori -->
                     <div class="hidden lg:flex items-center gap-2">
                         <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Dashboard</a>
                         <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a>
                     </div>
                 </div>
 
-                <!-- Kanan: Search, Theme Toggle, & Profile -->
                 <div class="flex items-center gap-3">
                     <div class="hidden md:flex rounded-lg px-4 py-2 items-center gap-2 w-56 transition-all" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <i class="fas fa-search text-xs" style="color: var(--text-muted);"></i>
@@ -182,30 +172,24 @@
                         <i class="fas fa-share-nodes text-sm"></i>
                     </button>
 
-                    <!-- Tag Profil (GANTI FOTO PROFIL DI SINI) -->
                     <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                        <!-- Ganti src dengan nama file foto profil Anda, contoh: foto-profil.jpg -->
-                        <img src="foto-profil.jpg" onerror="this.src='https://placehold.co/100x100/3b82f6/fff?text=Kamu'" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
+                        <img src="foto-profil.jpg" onerror="this.src='https://placehold.co/100x100/3b82f6/fff?text=Fery'" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
                         <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
                         <i class="fas fa-chevron-down text-xs ml-1 hidden sm:block" style="color: var(--text-muted);"></i>
                     </div>
                 </div>
             </nav>
 
-            <!-- Area Konten Utama -->
             <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8" style="background-color: var(--bg-main);">
                 
                 <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 w-full mx-auto">
                     
-                    <!-- Kiri: Banner & Proyek Utama -->
                     <div class="flex-1 flex flex-col gap-8 w-full min-w-0">
                         
-                        <!-- HERO BANNER (GANTI BANNER UTAMA DI SINI) -->
+                        <!-- Hero Banner -->
                         <div class="relative w-full h-[280px] md:h-[340px] rounded-lg overflow-hidden group fade-in-up delay-1 solid-card bg-slate-900" style="border: 1px solid var(--border-color);">
-                            <!-- Ganti src dengan nama file banner Anda, contoh: banner-utama.jpg -->
                             <img src="banner-utama.jpg" onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop'" alt="Banner" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-50">
                             
-                            <!-- Gradien transparan agar teks tetap terbaca -->
                             <div class="absolute inset-0 bg-gradient-to-t from-[var(--bg-main)] via-[var(--bg-main)]/60 to-transparent pointer-events-none"></div>
                             
                             <div class="absolute bottom-0 left-0 w-full p-6 md:p-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -228,78 +212,76 @@
                             </div>
                         </div>
 
-                        <!-- Grid Modul / Proyek Lainnya -->
+                        <!-- Grid Modul & Proyek -->
                         <div class="fade-in-up delay-2">
                             <div class="flex items-center justify-between mb-5">
                                 <h2 class="text-xl font-bold" style="color: var(--text-main);">Semua Modul & Proyek</h2>
                                 <button class="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color); color: var(--text-muted);">Lihat Semua</button>
                             </div>
                             
-                            <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
                                 
-                                <!-- Modul 1: Pop-Culture Vault (GANTI SAMPUL POPVAULT) -->
+                                <!-- Modul 1: Pop-Culture Vault -->
                                 <a href="popvault.html" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer bg-slate-900" style="border: 1px solid var(--border-color);">
                                     <div class="w-full h-[60%] relative overflow-hidden">
-                                        <!-- Ganti src dengan nama file sampul vault Anda, contoh: sampul-vault.jpg -->
                                         <img src="sampul-vault.jpg" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?q=80&w=600&auto=format&fit=crop'" alt="PopVault" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500">
                                         <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-blue-400 uppercase border border-white/10">App</div>
                                     </div>
                                     <div class="p-4 flex-1 flex flex-col justify-end" style="background-color: var(--bg-surface);">
                                         <h3 class="font-bold text-base mb-1 group-hover:text-blue-500 transition-colors leading-tight" style="color: var(--text-main);">Pop-Culture Vault</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Database tracker untuk komik, film, dan anime.</p>
+                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Database tracker komik & film.</p>
                                     </div>
                                 </a>
 
-                                <!-- Modul 2: Koleksi Game (GANTI SAMPUL GAME) -->
+                                <!-- Modul 2: Koleksi Game -->
                                 <a href="games.html" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer bg-slate-900" style="border: 1px solid var(--border-color);">
                                     <div class="w-full h-[60%] relative overflow-hidden">
-                                        <!-- Ganti src dengan nama file sampul game Anda, contoh: sampul-game.jpg -->
                                         <img src="sampul-game.jpg" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop'" alt="Game" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500">
                                         <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-green-400 uppercase border border-white/10">Game</div>
                                     </div>
                                     <div class="p-4 flex-1 flex flex-col justify-end" style="background-color: var(--bg-surface);">
                                         <h3 class="font-bold text-base mb-1 group-hover:text-green-500 transition-colors leading-tight" style="color: var(--text-main);">Koleksi Game</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Daftar game Mobile & PC yang sering dimainkan.</p>
+                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Daftar game Mobile & PC.</p>
                                     </div>
                                 </a>
 
-                                <!-- Modul 3: Archive Highlight (GANTI SAMPUL ARCHIVE) -->
+                                <!-- Modul 3: Archive Highlight -->
                                 <a href="archive.html" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer bg-slate-900" style="border: 1px solid var(--border-color);">
                                     <div class="w-full h-[60%] relative overflow-hidden">
-                                        <!-- Ganti src dengan nama file sampul archive Anda, contoh: sampul-archive.jpg -->
                                         <img src="sampul-archive.jpg" onerror="this.src='https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=600&auto=format&fit=crop'" alt="Archive" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500">
                                         <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-purple-400 uppercase border border-white/10">Archive</div>
                                     </div>
                                     <div class="p-4 flex-1 flex flex-col justify-end" style="background-color: var(--bg-surface);">
                                         <h3 class="font-bold text-base mb-1 group-hover:text-purple-500 transition-colors leading-tight" style="color: var(--text-main);">Archive Highlight</h3>
-                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Dokumentasi kegiatan, story harian, & momen spesial.</p>
+                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Dokumentasi kegiatan & story.</p>
                                     </div>
                                 </a>
 
-                                <!-- Modul 4: Proyek Baru -->
-                                <div class="relative aspect-[4/5] rounded-lg border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-colors hover:border-gray-400" style="border-color: var(--border-color);">
-                                    <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-3" style="background-color: var(--bg-surface);">
-                                        <i class="fas fa-plus" style="color: var(--text-muted);"></i>
+                                <!-- Modul 4: Alat Akademik & AI -->
+                                <a href="tools.html" class="group relative aspect-[4/5] rounded-lg overflow-hidden solid-card flex flex-col cursor-pointer bg-slate-900" style="border: 1px solid var(--border-color);">
+                                    <div class="w-full h-[60%] relative overflow-hidden">
+                                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" onerror="this.src='https://placehold.co/600x600/2563eb/fff?text=AI+Tools'" alt="AI Tools" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 transition-transform duration-500">
+                                        <div class="absolute top-2 right-2 bg-black/70 backdrop-blur-sm px-2 py-0.5 rounded text-[10px] font-bold text-yellow-400 uppercase border border-white/10">AI Tool</div>
                                     </div>
-                                    <h3 class="font-bold text-sm" style="color: var(--text-muted);">Proyek Baru</h3>
-                                    <p class="text-[10px] mt-1" style="color: var(--text-muted);">Segera hadir...</p>
-                                </div>
+                                    <div class="p-4 flex-1 flex flex-col justify-end" style="background-color: var(--bg-surface);">
+                                        <h3 class="font-bold text-base mb-1 group-hover:text-blue-500 transition-colors leading-tight" style="color: var(--text-main);">Alat Akademik & AI</h3>
+                                        <p class="text-xs line-clamp-2" style="color: var(--text-muted);">Parafrase, referensi, PPT, & DeepL.</p>
+                                    </div>
+                                </a>
 
                             </div>
                         </div>
                     </div>
 
-                    <!-- Kanan: Aktivitas & Alat -->
                     <div class="w-full lg:w-[300px] shrink-0 fade-in-up delay-3 flex flex-col gap-6">
                         
-                        <!-- Card Aktivitas Terkini (GANTI FOTO AKTIVITAS) -->
+                        <!-- Card Aktivitas Terkini -->
                         <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg" style="background-color: var(--accent);">
                             <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-white">Aktivitas Terkini</h2>
                             
                             <div class="flex flex-col gap-4">
                                 <div class="flex items-center gap-3">
                                     <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-slate-900">
-                                        <!-- Ganti src dengan file cover komik/buku Anda, contoh: cover-buku.jpg -->
                                         <img src="cover-buku.jpg" onerror="this.src='https://placehold.co/150x150/1e293b/fff?text=Manhwa'" alt="Sedang Baca" class="w-full h-full object-cover">
                                     </div>
                                     <div class="flex-1 min-w-0">
@@ -324,7 +306,7 @@
                             </div>
                         </div>
 
-                        <!-- Card Tech & Tools (Kuning Bumblebee) -->
+                        <!-- Card Tech & Tools -->
                         <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg bg-yellow-500">
                             <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-yellow-950">Tech & Tools</h2>
                             <div class="flex flex-wrap gap-2">
@@ -335,11 +317,11 @@
                             </div>
                         </div>
 
-                        <!-- Sosmed Khusus HP -->
+                        <!-- Mobile Social Links -->
                         <div class="md:hidden rounded-lg p-4 flex items-center justify-around transition-colors duration-300" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                             <a href="https://www.facebook.com/ferryboy11" target="_blank" class="transition-colors hover:text-[#1877F2]" style="color: var(--text-muted);"><i class="fab fa-facebook-f text-xl"></i></a>
                             <a href="https://www.instagram.com/feryusf_?igsh=bTM1c2p4ZTJlcmVp" target="_blank" class="transition-colors hover:text-[#E1306C]" style="color: var(--text-muted);"><i class="fab fa-instagram text-xl"></i></a>
-                            <a href="https://github.com/ferryusf11" target="_blank" class="transition-colors hover:text-white" style="color: var(--text-muted);"><i class="fab fa-github text-xl"></i></a>
+                            <a href="https://github.com/feryusf11" target="_blank" class="transition-colors hover:text-white" style="color: var(--text-muted);"><i class="fab fa-github text-xl"></i></a>
                         </div>
                         
                     </div>
