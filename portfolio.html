@@ -102,6 +102,7 @@
 </head>
 <body class="flex items-center justify-center p-0 md:p-6 lg:p-8">
 
+    <!-- Efek Background Latar Belakang -->
     <div class="fixed inset-0 pointer-events-none z-[-1] overflow-hidden">
         <div class="absolute -top-[20%] -left-[10%] w-[50vw] h-[50vw] rounded-full bg-blue-500/10 dark:bg-blue-600/15 blur-[120px] transition-colors duration-500"></div>
         <div class="absolute -bottom-[20%] -right-[10%] w-[50vw] h-[50vw] rounded-full bg-indigo-500/10 dark:bg-indigo-600/15 blur-[120px] transition-colors duration-500"></div>
@@ -111,8 +112,14 @@
 
     <div class="w-full max-w-[1300px] h-[100vh] md:h-[90vh] flex gap-4 md:gap-6 fade-in-up">
         
-        <aside class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-10 transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+        <!-- Sidebar Kiri -->
+        <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             <div class="flex flex-col items-center gap-6">
+                <!-- Tombol tutup sidebar (Hanya terlihat di mobile) -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
                 <a href="index.html" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
                     <i class="fas fa-layer-group text-xl"></i>
                 </a>
@@ -154,7 +161,7 @@
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                     <!-- Pills Navigasi Kategori -->
-                    <div class="flex items-center gap-2">
+                    <div class="hidden lg:flex items-center gap-2">
                         <a href="index.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Dashboard</a>
                         <a href="games.html" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Koleksi Game</a>
                         <a href="portfolio.html" class="px-4 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Portofolio & CV</a>
@@ -169,8 +176,8 @@
                         <i class="fas fa-sun hidden dark:block text-sm text-yellow-400"></i>
                     </button>
 
-                    <!-- Profil Tag -->
-                    <div class="flex items-center gap-3 rounded-lg pl-1.5 pr-4 py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                    <!-- Profil Tag (Sudah Diperbaiki Padding-nya) -->
+                    <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <img src="https://placehold.co/100x100/3b82f6/fff?text=Yusuf" alt="M. Yusuf" class="w-8 h-8 rounded-lg object-cover">
                         <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">M. Yusuf F.</span>
                     </div>
@@ -299,39 +306,39 @@
                         <!-- Kolom Kanan: Keahlian, Sertifikat & Preferensi -->
                         <div class="flex flex-col gap-6">
                             
-                            <!-- Keahlian -->
-                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                <h2 class="text-lg font-bold mb-4 flex items-center gap-2" style="color: var(--text-main);">
-                                    <i class="fas fa-tools text-blue-500"></i> Keahlian & Kompetensi
+                            <!-- Keahlian (TEMA KUNING) -->
+                            <div class="p-6 rounded-lg solid-card shadow-lg bg-yellow-500 border border-yellow-600 transition-colors duration-300">
+                                <h2 class="text-lg font-bold mb-4 flex items-center gap-2 text-yellow-950">
+                                    <i class="fas fa-tools text-yellow-800"></i> Keahlian & Kompetensi
                                 </h2>
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Customer Service</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Teamwork</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Analytical Skills</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Web Design</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Microsoft Word / Office</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Communication</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Canva Design</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Design Thinking</span>
-                                    <span class="text-xs px-3 py-1.5 rounded" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); color: var(--text-main);">Administration</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Customer Service</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Teamwork</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Analytical Skills</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Web Design</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Microsoft Word / Office</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Communication</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Canva Design</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Design Thinking</span>
+                                    <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Administration</span>
                                 </div>
                             </div>
 
-                            <!-- Sertifikasi Resmi -->
-                            <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                                <h2 class="text-lg font-bold mb-3 flex items-center gap-2" style="color: var(--text-main);">
-                                    <i class="fas fa-certificate text-yellow-500"></i> Sertifikasi Resmi
+                            <!-- Sertifikasi Resmi (TEMA BIRU) -->
+                            <div class="p-6 rounded-lg solid-card shadow-lg transition-colors duration-300" style="background-color: var(--accent); color: white; border: 1px solid var(--accent-hover);">
+                                <h2 class="text-lg font-bold mb-3 flex items-center gap-2 text-white/90">
+                                    <i class="fas fa-certificate text-yellow-300"></i> Sertifikasi Resmi
                                 </h2>
                                 <div class="flex flex-col gap-2">
-                                    <h3 class="font-bold text-sm" style="color: var(--text-main);">Strategi Komunikasi & Branding Digital</h3>
-                                    <p class="text-[11px] font-semibold" style="color: var(--accent);">Kementerian Ketenagakerjaan RI x Perumda Tirta Saromase</p>
-                                    <p class="text-xs leading-relaxed" style="color: var(--text-muted);">
-                                        Predikat: <strong class="text-green-500">SANGAT BAIK</strong> (No. MN.073.050322.02.2025). Mencakup kompetensi komunikasi korporat, manajemen dokumen lintas fungsional, dan optimasi infrastruktur digital pelayanan.
+                                    <h3 class="font-bold text-sm text-white">Strategi Komunikasi & Branding Digital</h3>
+                                    <p class="text-[11px] font-semibold text-blue-200">Kementerian Ketenagakerjaan RI x Perumda Tirta Saromase</p>
+                                    <p class="text-xs leading-relaxed text-white/80">
+                                        Predikat: <strong class="text-green-300">SANGAT BAIK</strong> (No. MN.073.050322.02.2025). Mencakup kompetensi komunikasi korporat, manajemen dokumen lintas fungsional, dan optimasi infrastruktur digital pelayanan.
                                     </p>
                                 </div>
                             </div>
 
-                            <!-- Preferensi Peran -->
+                            <!-- Preferensi Peran (Default Theme) -->
                             <div class="p-6 rounded-lg solid-card" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                                 <h2 class="text-lg font-bold mb-3 flex items-center gap-2" style="color: var(--text-main);">
                                     <i class="fas fa-bullseye text-blue-500"></i> Fokus & Peran
@@ -361,6 +368,7 @@
             }
         })();
 
+        // Fungsi mengganti tema
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -369,6 +377,18 @@
             } else {
                 html.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
+            }
+        }
+        
+        // Fungsi menu mobile (agar tombol burger menu bisa jalan)
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
             }
         }
     </script>
