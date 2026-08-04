@@ -112,10 +112,16 @@
 
     <div class="w-full max-w-[1300px] h-[100vh] md:h-[90vh] flex gap-4 md:gap-6 fade-in-up">
         
-        <!-- Sidebar Kiri (Desktop) -->
-        <aside class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-10 transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
+        <!-- Sidebar Kiri (Desktop & Mobile Dropdown) -->
+        <!-- Memperbarui aside dengan ID dan posisi absolute untuk versi mobile -->
+        <aside id="sidebar" class="hidden md:flex flex-col justify-between py-6 px-3 w-[80px] shrink-0 shadow-xl z-50 absolute md:relative h-full transition-colors duration-300" style="background-color: var(--bg-panel); border: 1px solid var(--border-color); border-radius: 12px;">
             <!-- Logo & Home -->
             <div class="flex flex-col items-center gap-6">
+                <!-- Tombol tutup (Hanya terlihat di mobile) -->
+                <button onclick="toggleMobileMenu()" class="md:hidden text-gray-400 hover:text-red-500 mb-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+
                 <a href="#" class="w-12 h-12 rounded-lg text-white flex items-center justify-center shadow-md transition-transform hover:scale-105" style="background-color: var(--accent);">
                     <i class="fas fa-layer-group text-xl"></i>
                 </a>
@@ -130,13 +136,13 @@
                 <a href="games.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Koleksi Game">
                     <i class="fas fa-gamepad text-lg"></i>
                 </a>
-                <!-- Portofolio (Menggantikan menu Pesan) -->
+                <!-- Portofolio -->
                 <a href="portfolio.html" class="w-12 h-12 rounded-lg flex items-center justify-center transition-all" style="color: var(--text-muted);" title="Portofolio & CV">
                     <i class="fas fa-id-card text-lg"></i>
                 </a>
             </div>
 
-            <!-- Sosial Media Bawah (Facebook) -->
+            <!-- Sosial Media Bawah -->
             <div class="flex flex-col items-center gap-4">
                 <a href="https://www.facebook.com/ferryboy11" class="w-10 h-10 rounded-lg flex items-center justify-center transition-colors hover:text-white hover:bg-[#1877F2]" style="color: var(--text-muted);" title="Facebook">
                     <i class="fab fa-facebook-f"></i>
@@ -156,6 +162,7 @@
             <nav class="flex items-center justify-between p-4 md:p-6 z-10 sticky top-0 transition-colors duration-300" style="background-color: var(--bg-panel); border-bottom: 1px solid var(--border-color);">
                 
                 <div class="flex items-center gap-4">
+                    <!-- Tombol ini memanggil toggleMobileMenu() yang sekarang sudah didefinisikan di JS -->
                     <button onclick="toggleMobileMenu()" class="md:hidden" style="color: var(--text-muted);" title="Menu">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
@@ -163,7 +170,8 @@
                     <div class="hidden lg:flex items-center gap-2">
                         <a href="index.html" class="px-5 py-2 rounded-lg text-sm font-semibold shadow-sm" style="background-color: var(--text-main); color: var(--bg-main);">Dashboard</a>
                         <a href="games.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Koleksi Game</a>
-                        <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a
+                        <!-- Typo diperbaiki disini: </a> sebelumnya terpotong menjadi </a -->
+                        <a href="portfolio.html" class="px-5 py-2 rounded-lg text-sm font-medium transition-colors" style="color: var(--text-muted);">Portofolio</a>
                     </div>
                 </div>
 
@@ -187,7 +195,7 @@
                     </button>
 
                     <!-- Profil Tag -->
-                    <div class="flex items-center gap-3 rounded-lg pl-1.5 pr-4 py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
+                    <div class="flex items-center gap-3 rounded-lg p-1.5 sm:pl-1.5 sm:pr-4 sm:py-1.5 cursor-pointer transition-colors" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
                         <img src="https://placehold.co/100x100/3b82f6/fff?text=Kamu" alt="Profile" class="w-8 h-8 rounded-lg object-cover">
                         <span class="text-sm font-semibold hidden sm:block" style="color: var(--text-main);">Fery</span>
                         <i class="fas fa-chevron-down text-xs ml-1 hidden sm:block" style="color: var(--text-muted);"></i>
@@ -291,44 +299,44 @@
                     <div class="w-full lg:w-[300px] shrink-0 fade-in-up delay-3 flex flex-col gap-6">
                         
                         <!-- Card Aktivitas Terkini -->
-                        <div class="rounded-lg p-5 transition-colors duration-300" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4" style="color: var(--text-muted);">Aktivitas Terkini</h2>
+                        <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg" style="background-color: var(--accent); color: white;">
+                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-white/80">Aktivitas Terkini</h2>
                             
                             <div class="flex flex-col gap-4">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0">
-                                        <img src="https://placehold.co/150x150/222/fff?text=Manhwa" class="w-full h-full object-cover">
+                                    <div class="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-white/10">
+                                        <img src="https://placehold.co/150x150/222/fff?text=Manhwa" alt="Manhwa" class="w-full h-full object-cover">
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-[10px] font-bold mb-0.5" style="color: var(--accent);">SEDANG MEMBACA</p>
-                                        <h4 class="text-sm font-bold truncate" style="color: var(--text-main);">Nano Machine</h4>
-                                        <p class="text-xs" style="color: var(--text-muted);">Chapter 220</p>
+                                        <p class="text-[10px] font-bold mb-0.5 text-blue-200">SEDANG MEMBACA</p>
+                                        <h4 class="text-sm font-bold truncate text-white">Nano Machine</h4>
+                                        <p class="text-xs text-white/70">Chapter 220</p>
                                     </div>
                                 </div>
                                 
-                                <div class="w-full h-px" style="background-color: var(--border-color);"></div>
+                                <div class="w-full h-px bg-white/20"></div>
 
                                 <div class="flex items-center gap-3">
-                                    <div class="w-14 h-14 rounded-lg border flex items-center justify-center shrink-0" style="background-color: var(--bg-main); border-color: var(--border-color);">
-                                        <i class="fab fa-CS text-2xl text-yellow-500"></i>
+                                    <div class="w-14 h-14 rounded-lg border flex items-center justify-center shrink-0 bg-white/10 border-white/20">
+                                        <i class="fab fa-neos text-2xl text-yellow-400"></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-[10px] font-bold text-yellow-500 mb-0.5">FOKUS BELAJAR</p>
-                                        <h4 class="text-sm font-bold truncate" style="color: var(--text-main);">Cara Sukses tanpa Modal Mod APK no root</h4>
-                                        <p class="text-xs" style="color: var(--text-muted);">Mod APK no root</p>
+                                        <p class="text-[10px] font-bold text-yellow-400 mb-0.5">FOKUS BELAJAR</p>
+                                        <h4 class="text-sm font-bold truncate text-white">Cara Sukses tanpa Modal Mod APK no root</h4>
+                                        <p class="text-xs text-white/70">Mod APK no root</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card Tech & Tools -->
-                        <div class="rounded-lg p-5 transition-colors duration-300" style="background-color: var(--bg-surface); border: 1px solid var(--border-color);">
-                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4" style="color: var(--text-muted);">Tech & Tools</h2>
+                        <div class="rounded-lg p-5 transition-colors duration-300 shadow-lg bg-yellow-500">
+                            <h2 class="text-sm font-bold uppercase tracking-wider mb-4 text-yellow-950">Tech & Tools</h2>
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default" style="background-color: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main);">HTML5</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default" style="background-color: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main);">Tailwind CSS</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default" style="background-color: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main);">Canva</span>
-                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default" style="background-color: var(--bg-main); border: 1px solid var(--border-color); color: var(--text-main);">Gemini AI</span>
+                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">HTML5</span>
+                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Tailwind CSS</span>
+                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Canva</span>
+                                <span class="text-xs px-3 py-1.5 rounded transition-colors cursor-default bg-gray-900 text-yellow-400 shadow-sm font-semibold">Gemini AI</span>
                             </div>
                         </div>
 
@@ -357,6 +365,7 @@
             }
         })();
 
+        /* Fungsi Mengganti Tema */
         function toggleTheme() {
             const html = document.documentElement;
             if (html.classList.contains('dark')) {
@@ -368,6 +377,7 @@
             }
         }
 
+        /* Fungsi Membagikan Profil (Copy Link) */
         function shareProfile() {
             const btn = event.currentTarget;
             const originalHTML = btn.innerHTML;
@@ -381,6 +391,23 @@
             }).catch(err => {
                 console.error('Gagal menyalin text: ', err);
             });
+        }
+
+        /* 
+         * Fungsi Menu Mobile 
+         * Fungsi ini sebelumnya hilang yang menyebabkan ReferenceError di Console.
+         */
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            
+            // Toggle kelas 'hidden' dan 'flex' agar sidebar bisa muncul/hilang di mobile
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                sidebar.classList.add('flex');
+            } else {
+                sidebar.classList.add('hidden');
+                sidebar.classList.remove('flex');
+            }
         }
     </script>
 </body>
